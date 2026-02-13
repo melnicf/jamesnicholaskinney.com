@@ -1,0 +1,68 @@
+---
+description: Use shadcn/ui components instead of default React/HTML equivalents
+globs: **/*.{tsx,jsx}
+alwaysApply: true
+---
+
+# shadcn/ui — Prefer Over Default React/HTML
+
+**Always use shadcn components** from this project’s UI registry (`@shadcn`) instead of default React or plain HTML elements when a matching shadcn component exists.
+
+## Add before use
+
+If a component is not yet in the project, add it with:
+
+```bash
+npx shadcn@latest add <component-name>
+```
+
+Use the project’s configured registry (e.g. `@shadcn`). Check `components.json` for the registry.
+
+## Mapping: default → shadcn
+
+| Need | Don’t use | Use shadcn |
+|------|-----------|------------|
+| Button | `<button>`, custom btn | `Button` |
+| Links that look like buttons | `<a>` + custom styles | `Button` with `asChild` + `Link` |
+| Form inputs | `<input>` | `Input` (or `InputGroup`, `InputOTP` if applicable) |
+| Text area | `<textarea>` | `Textarea` |
+| Checkbox | `<input type="checkbox">` | `Checkbox` |
+| Radio group | `<input type="radio">` | `RadioGroup` |
+| Toggle on/off | custom div | `Switch` |
+| Dropdown / menu | custom div + state | `DropdownMenu` |
+| Modal / dialog | custom modal | `Dialog` or `AlertDialog` |
+| Sheet (drawer) | custom drawer | `Sheet` or `Drawer` |
+| Popover | custom positioned div | `Popover` |
+| Tooltip | custom title/div | `Tooltip` |
+| Select (single) | `<select>` | `Select` (or `NativeSelect` when appropriate) |
+| Tabs | custom state + divs | `Tabs` |
+| Cards | plain divs | `Card`, `CardHeader`, `CardContent`, `CardFooter` |
+| Badge / tag | `<span>` styled | `Badge` |
+| Avatar | `<img>` rounded | `Avatar` |
+| Loading spinner | custom spinner | `Spinner` |
+| Progress bar | custom div | `Progress` |
+| Skeleton loaders | custom placeholders | `Skeleton` |
+| Tables | raw `<table>` | `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableCell` |
+| Breadcrumbs | manual links | `Breadcrumb` |
+| Pagination | custom buttons | `Pagination` |
+| Labels | `<label>` only | `Label` (from shadcn) |
+| Forms (with validation) | raw form | `Form` + react-hook-form + zod |
+| Separator | `<hr>` or div | `Separator` |
+| Scrollable area | overflow div | `ScrollArea` |
+| Accordion / collapse | custom state | `Accordion` or `Collapsible` |
+| Command palette / combobox | custom input + list | `Command` or `Combobox` |
+| Calendar / date picker | raw input | `Calendar` (+ popover if needed) |
+| Toasts / notifications | custom toast | `Sonner` or project toast pattern |
+
+## Available @shadcn UI components (reference)
+
+Use these names with `npx shadcn@latest add <name>`:
+
+- accordion, alert, alert-dialog, aspect-ratio, avatar, badge, breadcrumb, button, button-group, calendar, card, carousel, chart, checkbox, collapsible, combobox, command, context-menu, dialog, drawer, dropdown-menu, empty, field, form, hover-card, input, input-group, input-otp, item, label, menubar, navigation-menu, pagination, popover, progress, radio-group, resizable, scroll-area, select, separator, sheet, sidebar, skeleton, slider, sonner, spinner, switch, table, tabs, textarea, toggle, toggle-group, tooltip, kbd, native-select, direction
+
+## Rules
+
+- Import from the project’s `components/ui` (or path defined in `components.json`), e.g. `import { Button } from '@/components/ui/button'`.
+- Prefer composition: use `asChild` when you need the behavior of a native element (e.g. `Button` wrapping `Link`).
+- Don’t recreate existing shadcn components with raw HTML or other libraries; add the shadcn component and use it.
+- For one-off layouts that don’t match a primitive (e.g. hero, footer), plain divs + Tailwind are fine; for buttons, inputs, modals, etc., use shadcn.

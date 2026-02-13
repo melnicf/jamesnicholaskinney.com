@@ -1,0 +1,14 @@
+---
+description: Sanity CMS — GROQ, schemas, and Next.js integration
+globs: **/sanity/**/*, **/*sanity*
+alwaysApply: false
+---
+
+# Sanity CMS
+
+- **GROQ**: Use GROQ for all Sanity queries. Keep queries in dedicated files or server modules; avoid string concatenation for query building (use parameters and filters).
+- **Schemas**: Define document and object types in the schema with clear `name`, `type`, `title`, and `fields`. Use references and weak references where appropriate; avoid deep nested structures that are hard to query.
+- **Portable Text**: Use `@portabletext/react` (or project convention) for rich text; define block content types in the schema and handle custom components in the renderer.
+- **Next.js**: Fetch Sanity data in Server Components or server-only modules. Use the Sanity client configured for the dataset; do not expose the project ID or token to the client unless required (e.g. live preview).
+- **Caching**: Use Next.js `fetch` cache options or Sanity’s `perspective`/`staleTime` as appropriate; use revalidation (e.g. `revalidate`, on-demand) for content updates.
+- **Anti-patterns**: Don’t run GROQ in Client Components unless necessary (e.g. live preview); don’t store secrets in client bundle; don’t skip validation on schema fields.

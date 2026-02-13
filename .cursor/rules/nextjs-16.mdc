@@ -1,0 +1,127 @@
+---
+description: Next.js 16 App Router — Server Components, async params/searchParams, MCP-backed rules
+globs: app/**/*.{ts,tsx}, **/page.{ts,tsx}, **/layout.{ts,tsx}, **/route.{ts,tsx}, **/middleware.{ts,tsx}, **/proxy.{ts,tsx}
+alwaysApply: false
+---
+
+# Next.js 16 App Router
+
+This project uses **Next.js 16** with the App Router. Follow these patterns; avoid deprecated or anti-pattern behavior.
+
+## MCP: Authoritative Next.js 16 rules
+
+For **Next.js 16–specific** behavior, migrations, and Cache Components, use the **Next.js DevTools MCP** (server: `user-next-devtools`). Prefer MCP resources over this file when they apply.
+
+### When to use MCP
+
+- **Migration (15 → 16 or beta → stable):** Fetch `nextjs16://migration/beta-to-stable` and `nextjs16://migration/examples`.
+- **Official docs index (paths for `nextjs_docs`):** Fetch `nextjs-docs://llms-index`, then call `nextjs_docs` with the path from the index for any Next.js API or concept.
+- **Cache Components** (if `experimental.cacheComponents` is enabled): Fetch the `cache-components://*` resources, e.g. `cache-components://overview`, `cache-components://request-apis`, `cache-components://core-mechanics`, `cache-components://error-patterns`, `cache-components://cache-invalidation`, etc.
+- **`use client` / Server vs Client:** Fetch `nextjs-fundamentals://use-client`.
+- **Middleware → Proxy:** Fetch `nextjs16://migration/examples` (see “Middleware to Proxy” section).
+
+### MCP resource URIs (Next.js 16)
+
+| Topic | URI |
+|-------|-----|
+| Docs index | `nextjs-docs://llms-index` |
+| 16 migration (beta→stable) | `nextjs16://migration/beta-to-stable` |
+| 16 migration examples | `nextjs16://migration/examples` |
+| Middleware → Proxy | `nextjs16://migration/examples` (Middleware to Proxy section) |
+| Cache Components overview | `cache-components://overview` |
+| Request APIs (params, cookies, etc.) | `cache-components://request-apis` |
+| use client | `nextjs-fundamentals://use-client` |
+
+Use **fetch_mcp_resource** with `server: "user-next-devtools"` and the URI above, or **nextjs_docs** with a path from the docs index. Do not rely on training data for Next.js 16 APIs; use MCP or official docs.
+
+## Route props (params, searchParams)
+
+In Next.js 16, `params` and `searchParams` are **Promises**. Always await them.
+
+```tsx
+// ✅ GOOD — Server Component
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const { slug } = await params;
+  const query = await searchParams;
+  return <Article slug={slug} />;
+}
+
+// ✅ GOOD — Typed with PageProps (no import needed after typegen)
+export default async function Page(props: PageProps<'/blog/[slug]'>) {
+  const { slug } = await props.params;
+  return <h1>{slug}</h1>;
+}
+
+// ❌ BAD — Synchronous access (deprecated in 16)
+export default function Page({ params }: { params: { slug: string } }) {
+  return <h1>{params.slug}</h1>;
+}
+```
+
+In **Client Component** pages, use React’s `use()` to read the promises:
+
+```tsx
+'use client';
+import { use } from 'react';
+
+export default function Page({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const { slug } = use(params);
+  const filters = use(searchParams);
+  return <ClientContent slug={slug} />;
+}
+```
+
+## Server Components by default
+
+- Prefer **Server Components** (no `'use client'`). Fetch data in the component with `async/await` or in server-only modules.
+- Use `'use client'` only for interactivity (hooks, event handlers, browser APIs). Push client boundaries as deep as possible so most of the tree stays server-rendered.
+- Do **not** have Server Components call your own Route Handlers to get data; call data-fetching or DB logic directly in the server component or in a server module.
+
+## Data fetching
+
+- Fetch on the server in Server Components. Use `fetch` (with Next caching as needed), or direct DB/CMS calls.
+- Use **parallel** fetching where possible; use **Suspense** for streaming and loading states.
+- Prefer `generateStaticParams` for static dynamic routes; use `dynamic = 'force-static'` or `revalidate` when appropriate.
+
+## Layouts
+
+- Layouts receive `children: React.ReactNode`. Nested layouts wrap their segment’s page and child layouts.
+- Root layout must include `<html>` and `<body>`.
+
+## Linking and navigation
+
+- Use `next/link`’s `<Link>` for in-app navigation (prefetching, client transitions). Use `<a>` for external URLs.
+
+## Middleware / Proxy (Next.js 16)
+
+In Next.js 16 the request-edge layer is **renamed from Middleware to Proxy**. Existing `middleware.ts` still works (deprecated) but new code should use the Proxy API.
+
+- **File:** `middleware.ts` → `proxy.ts` (at project root or `src/`).
+- **Export:** `export function middleware(request)` → `export function proxy(request)`.
+- **Config** (in `next.config.js`):  
+  `middlewarePrefetch` → `proxyPrefetch`,  
+  `middlewareClientMaxBodySize` → `proxyClientMaxBodySize`,  
+  `externalMiddlewareRewritesResolve` → `externalProxyRewritesResolve`,  
+  `skipMiddlewareUrlNormalize` → `skipProxyUrlNormalize`.
+
+For full migration steps and examples, fetch MCP resource `nextjs16://migration/examples` (section “Middleware to Proxy”). For official Proxy docs, use the docs index then `nextjs_docs` (e.g. file-conventions proxy, getting-started proxy).
+
+## Anti-patterns to avoid
+
+- Don’t use sync `params`/`searchParams` (pre-16 style).
+- Don’t add `'use client'` at the top of the file unless the component needs client features.
+- Don’t fetch in Server Components by calling your own API routes; call server-side logic directly.
+- Don’t put sensitive keys or server-only code in Client Components.
+- If **Cache Components** is enabled: don’t use `export const dynamic`, `revalidate`, `fetchCache`, or `dynamicParams`; use `"use cache"` and `cacheLife`/`cacheTag` instead (see MCP `cache-components://overview`).

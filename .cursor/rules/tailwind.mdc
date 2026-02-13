@@ -1,0 +1,15 @@
+---
+description: Tailwind CSS — utilities only, no inline styles or arbitrary values unless needed
+globs: **/*.{tsx,ts,jsx,js,css}
+alwaysApply: false
+---
+
+# Tailwind CSS
+
+- Use **Tailwind utility classes** for layout and styling. Avoid custom CSS or inline `style={}` unless necessary (e.g. dynamic values).
+- Prefer **design tokens**: use `theme()` in `tailwind.config` for colors, spacing, typography; reference them with utilities (e.g. `bg-primary`, `text-muted-foreground`).
+- Use **responsive prefixes** (`sm:`, `md:`, `lg:`) for breakpoints; prefer mobile-first.
+- Prefer **semantic/component classes** when using a design system (e.g. shadcn): use the component’s class names rather than redefining with raw utilities in the same file.
+- Avoid **arbitrary values** (`w-[347px]`) unless no theme value fits; prefer `max-w-*`, `w-full`, or theme-based sizes.
+- Keep **specificity low**: avoid long utility chains that duplicate component styles; extract repeated patterns into components or `@apply` in a single place.
+- **Dark mode**: use `dark:` variants and a single strategy (e.g. `class` or `media`) set in config; stay consistent.

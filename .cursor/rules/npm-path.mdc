@@ -1,0 +1,25 @@
+---
+description: Use Homebrew Node for npm/node commands so they work in Cursor's sandbox (bypasses Volta)
+alwaysApply: true
+---
+
+# npm / node commands in this project
+
+When running **npm** or **node** (e.g. `npm install`, `npm run dev`, `npx`) in the terminal, prepend PATH so Homebrew's Node is used and Volta is bypassed. Otherwise the sandbox may hit "Volta error: Node is not available".
+
+Use:
+
+```bash
+PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" npm install
+```
+
+or for any npm/node command:
+
+```bash
+PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" <command>
+```
+
+Examples:
+- `PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" npm install`
+- `PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" npm run dev`
+- `PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" npx shadcn@latest add button`
