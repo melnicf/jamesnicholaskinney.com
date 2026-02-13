@@ -38,7 +38,7 @@ export const article = defineType({
       title: "Content State",
       type: "string",
       options: {
-        list: CONTENT_STATES,
+        list: [...CONTENT_STATES],
         layout: "radio",
       },
       initialValue: "ingested",
