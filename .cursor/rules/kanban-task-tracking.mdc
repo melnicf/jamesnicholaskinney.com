@@ -1,0 +1,75 @@
+---
+description: Track work in the Notion kanban board — create tasks when starting phase work, update status and content when done.
+alwaysApply: true
+---
+
+# Kanban Task Tracking
+
+When working on any roadmap phase, **every distinct deliverable or technical task gets its own kanban card** in Notion.
+
+## Workflow
+
+1. **Starting work** → Create a card in the kanban with status `In development`.
+2. **Finishing work** → Move the card to `Done` and update its content with what was accomplished.
+
+## Kanban schema
+
+| Property       | Type         | Values / Notes                                                        |
+| -------------- | ------------ | --------------------------------------------------------------------- |
+| `Name`         | title        | Short task name (e.g. "Build global navigation")                      |
+| `Status`       | status       | `Not started`, `In development`, `Testing`, `Reviewing`, `Done`       |
+| `Team`         | select       | `Design`, `Engineering`, `Product`                                    |
+| `Assign`       | person       | User IDs (JSON array)                                                 |
+| `Deadline`     | date         | ISO-8601 date                                                         |
+| `AI keywords`  | multi_select | `Documentation`, `Deployment`, `Testing`, `Performance`, `Integration`, `Marketing`, `User testing`, `User research`, `Visuals`, `Design research` |
+
+- **Kanban data source ID:** `2fdf2dac-3fff-81cb-b15c-000bbaa48222`
+
+## MCP commands
+
+### Create a task (set to In development)
+
+```
+Tool: notion-create-pages
+parent: { "data_source_id": "2fdf2dac-3fff-81cb-b15c-000bbaa48222" }
+pages: [{
+  "properties": {
+    "Name": "<task title>",
+    "Status": "In development",
+    "Team": "Engineering"
+  },
+  "content": "<optional initial notes in Notion markdown>"
+}]
+```
+
+### Update status to Done
+
+```
+Tool: notion-update-page
+data: {
+  "page_id": "<page-id>",
+  "command": "update_properties",
+  "properties": { "Status": "Done" }
+}
+```
+
+### Update card content with what was done
+
+```
+Tool: notion-update-page
+data: {
+  "page_id": "<page-id>",
+  "command": "replace_content",
+  "new_str": "<Notion markdown summarising what was completed>"
+}
+```
+
+### Both at once (status + content) — run sequentially
+
+1. `update_properties` with `{ "Status": "Done" }`
+2. `replace_content` (or `replace_content_range` / `insert_content_after`) with the summary
+
+## Examples
+
+- Phase 2 "Build global navigation" → create card **"Build global navigation"**, status `In development`, team `Engineering`.
+- When done → set status `Done`, add content listing components built, routes added, and any decisions made.

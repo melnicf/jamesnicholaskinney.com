@@ -16,7 +16,7 @@
 | **Database**           | PostgreSQL (Managed)          | Dedup hashes, ingestion logs, metadata        |
 | **AI Services**        | OpenAI API                    | Summaries, categorization, draft generation   |
 | **Hosting**            | Vercel                        | Frontend + serverless backend hosting         |
-| **DNS & Security**     | Cloudflare                    | DNS, HTTPS, basic security/perf               |
+| **DNS**                | Existing registrar             | Domain DNS (point to Vercel)                  |
 | **Analytics**          | Plausible / Vercel Analytics  | Page views, referrers, publish frequency      |
 | **CI/CD**              | Vercel Native                 | Automatic deploys on push to main             |
 | **Video**              | YouTube                       | Weekly recap hosting, embedded on site         |
@@ -161,10 +161,9 @@ No complex dashboards or user tracking during MVP.
 - Automatic preview deployments
 - Built-in CI/CD
 
-### Cloudflare
-- DNS management
-- HTTPS
-- Basic security and performance optimizations
+### DNS
+- Domain managed at existing registrar
+- A / CNAME records pointed at Vercel for production and preview
 
 ---
 

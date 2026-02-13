@@ -48,7 +48,6 @@ Establish absolute clarity on product direction and create a working technical b
 - [x] Define Sanity content schemas (articles, categories, pages)
 - [x] Connect Next.js to Sanity (GROQ queries)
 - [ ] Deploy to Vercel (production + preview environments)
-- [ ] Configure Cloudflare DNS
 
 ### Outcome
 
