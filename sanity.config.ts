@@ -11,6 +11,7 @@ export default defineConfig({
   title: "James Nicholas Kinney",
   projectId: projectId || "cvjrh10b",
   dataset: dataset || "production",
+  basePath: "/studio",
   plugins: [structureTool(), visionTool()],
   schema: {
     types: schemaTypes,
