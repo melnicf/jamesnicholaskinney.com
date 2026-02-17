@@ -27,6 +27,75 @@ When working on any roadmap phase, **every distinct deliverable or technical tas
 
 ## MCP commands
 
+### How to call Notion MCP (strict format)
+
+Use the Notion MCP tools directly with JSON objects (not stringified JSON).
+
+- Tool names:
+  - `user-notion-notion-create-pages`
+  - `user-notion-notion-update-page`
+- Important:
+  - `parent` must be an **object**, never a quoted string.
+  - `data` must be an **object** for update calls.
+  - Use the kanban data source ID exactly: `2fdf2dac-3fff-81cb-b15c-000bbaa48222`.
+
+Correct call shape (create):
+
+```json
+{
+  "parent": {
+    "type": "data_source_id",
+    "data_source_id": "2fdf2dac-3fff-81cb-b15c-000bbaa48222"
+  },
+  "pages": [
+    {
+      "properties": {
+        "Name": "<task title>",
+        "Status": "In development",
+        "Team": "Engineering"
+      },
+      "content": "<optional Notion markdown>"
+    }
+  ]
+}
+```
+
+Correct call shape (mark done):
+
+```json
+{
+  "data": {
+    "page_id": "<page-id>",
+    "command": "update_properties",
+    "properties": {
+      "Status": "Done"
+    }
+  }
+}
+```
+
+Correct call shape (replace content):
+
+```json
+{
+  "data": {
+    "page_id": "<page-id>",
+    "command": "replace_content",
+    "new_str": "<Notion markdown using the Required update format>"
+  }
+}
+```
+
+Common failure to avoid:
+
+```json
+{
+  "parent": "{\"type\":\"data_source_id\",\"data_source_id\":\"...\"}"
+}
+```
+
+The above fails because `parent` is a string, not an object.
+
 ### Create a task (set to In development)
 
 ```
@@ -68,6 +137,29 @@ data: {
 
 1. `update_properties` with `{ "Status": "Done" }`
 2. `replace_content` (or `replace_content_range` / `insert_content_after`) with the summary
+
+## Required update format (when task is Done)
+
+When updating a finished task card, use this structure for `new_str` in `replace_content`:
+
+```markdown
+## Completed
+- <What was built/changed>
+- <Key implementation detail>
+- <Any route/component/schema added>
+
+## Verification
+- <How it was verified: build, lint, manual checks>
+
+## Decisions / Notes
+- <Important decision, constraint, or follow-up>
+```
+
+Rules:
+- Keep bullets concise and concrete.
+- Mention exact pages/components/schemas touched.
+- Include at least one verification bullet.
+- Avoid vague summaries like "done" or "updated stuff".
 
 ## Examples
 
