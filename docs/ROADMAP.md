@@ -47,7 +47,7 @@ Establish absolute clarity on product direction and create a working technical b
 - [x] Set up Sanity Studio
 - [x] Define Sanity content schemas (articles, categories, pages)
 - [x] Connect Next.js to Sanity (GROQ queries)
-- [ ] Deploy to Vercel (production + preview environments)
+- [x] Deploy to Vercel (production + preview environments)
 
 ### Outcome
 
@@ -58,7 +58,7 @@ Zero ambiguity going into implementation. All core documents completed and agree
 ## Phase 2 — Core Site Build 🔜
 
 **Duration:** Weeks 2–3
-**Status:** UP NEXT
+**Status:** In progress
 
 ### Objective
 
@@ -84,7 +84,7 @@ Ship a credible, fast, press-ready headquarters.
 
 ### Technical Tasks
 
-- [ ] Build global navigation (primary + secondary + utility bar)
+- [x] Build global navigation (primary + secondary + utility bar)
 - [ ] Build responsive layout system
 - [ ] Create Home page with modular sections
 - [ ] Create Category page template
