@@ -47,9 +47,11 @@ function NavLinks({ onLinkClick }: { onLinkClick?: () => void }) {
   return (
     <>
       <NavigationMenuItem>
-        <Link href="/" legacyBehavior passHref onClick={onLinkClick}>
-          <NavigationMenuLink className={headerLinkClass}>Home</NavigationMenuLink>
-        </Link>
+        <NavigationMenuLink asChild>
+          <Link href="/" className={headerLinkClass} onClick={onLinkClick}>
+            Home
+          </Link>
+        </NavigationMenuLink>
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuTrigger className={headerLinkClass}>
@@ -75,11 +77,15 @@ function NavLinks({ onLinkClick }: { onLinkClick?: () => void }) {
       </NavigationMenuItem>
       {PRIMARY_LINKS.map((item) => (
         <NavigationMenuItem key={item.href}>
-          <Link href={item.href} legacyBehavior passHref onClick={onLinkClick}>
-            <NavigationMenuLink className={headerLinkClass}>
+          <NavigationMenuLink asChild>
+            <Link
+              href={item.href}
+              className={headerLinkClass}
+              onClick={onLinkClick}
+            >
               {item.label}
-            </NavigationMenuLink>
-          </Link>
+            </Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
       ))}
     </>
