@@ -85,11 +85,11 @@ Ship a credible, fast, press-ready headquarters.
 ### Technical Tasks
 
 - [x] Build global navigation (primary + secondary + utility bar)
-- [ ] Build responsive layout system
-- [ ] Create Home page with modular sections
-- [ ] Create Category page template
-- [ ] Create Content Detail page template
-- [ ] Build About, Books, Speaking, Contact pages
+- [x] Build responsive layout system
+- [x] Create Home page with modular sections
+- [x] Create Category page template
+- [x] Create Content Detail page template
+- [x] Build About, Books, Speaking, Contact pages
 - [ ] Implement editorial content states (Ingested → Needs Review → Approved → Published)
 - [ ] Configure role-based permissions (Admin, Editor)
 - [ ] Set up analytics (Plausible or Vercel Analytics)

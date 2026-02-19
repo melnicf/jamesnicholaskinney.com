@@ -3,7 +3,7 @@
  * Use with the client: client.fetch(ARTICLES_QUERY)
  */
 
-export const ARTICLES_QUERY = `*[_type == "article" && contentState == "published" && defined(slug.current)] | order(publishedAt desc) {
+export const ARTICLES_QUERY = `*[_type == "article" && contentState == "published" && defined(slug.current)] | order(publishedAt desc) [0...20] {
   _id,
   title,
   "slug": slug.current,
