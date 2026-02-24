@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
 import { PageContainer } from "@/components/page-container";
@@ -9,6 +10,19 @@ import type { PortableTextBlock } from "@portabletext/types";
 type SanityPage = {
   title?: string;
   body?: unknown;
+};
+
+export const metadata: Metadata = {
+  title: "Appearances",
+  description:
+    "Talks, appearances, keynote topics, and booking information for James Nicholas Kinney.",
+  openGraph: {
+    title: "Appearances — James Nicholas Kinney",
+    description:
+      "Talks, appearances, keynote topics, and booking information for James Nicholas Kinney.",
+    url: "/appearances",
+  },
+  alternates: { canonical: "/appearances" },
 };
 
 export default async function AppearancesPage() {

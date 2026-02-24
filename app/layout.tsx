@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { ConditionalSiteHeader } from "@/components/conditional-site-header";
 import { ConditionalSiteFooter } from "@/components/conditional-site-footer";
 import { MainContentWrapper } from "@/components/main-content-wrapper";
@@ -15,9 +16,38 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://jamesnicholaskinney.com";
+
 export const metadata: Metadata = {
-  title: "James Nicholas Kinney",
-  description: "James Nicholas Kinney — author, speaker, and commentator.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "James Nicholas Kinney",
+    template: "%s | James Nicholas Kinney",
+  },
+  description:
+    "Daily intelligence on business, technology, politics, and culture — curated and framed by James Nicholas Kinney.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: "James Nicholas Kinney",
+    title: "James Nicholas Kinney",
+    description:
+      "Daily intelligence on business, technology, politics, and culture — curated and framed by James Nicholas Kinney.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "James Nicholas Kinney",
+    description:
+      "Daily intelligence on business, technology, politics, and culture — curated and framed by James Nicholas Kinney.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: SITE_URL,
+  },
 };
 
 export default function RootLayout({
@@ -33,6 +63,7 @@ export default function RootLayout({
         <ConditionalSiteHeader />
         <MainContentWrapper>{children}</MainContentWrapper>
         <ConditionalSiteFooter />
+        <Analytics />
       </body>
     </html>
   );

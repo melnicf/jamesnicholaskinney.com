@@ -19,6 +19,10 @@ export const ARTICLE_BY_SLUG_QUERY = `*[_type == "article" && slug.current == $s
   body,
   excerpt,
   publishedAt,
+  seoTitle,
+  seoDescription,
+  sourceName,
+  sourceUrl,
   category->{ title, "slug": slug.current }
 }`;
 

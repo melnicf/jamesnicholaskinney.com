@@ -90,10 +90,10 @@ Ship a credible, fast, press-ready headquarters.
 - [x] Create Category page template
 - [x] Create Content Detail page template
 - [x] Build About, Books, Appearances, Contact pages
-- [ ] Implement editorial content states (Ingested → Needs Review → Approved → Published)
-- [ ] Configure role-based permissions (Admin, Editor)
-- [ ] Set up analytics (Plausible or Vercel Analytics)
-- [ ] SEO metadata setup (Open Graph, structured data)
+- [x] Implement editorial content states (Ingested → Needs Review → Approved → Published)
+- [x] Configure role-based permissions (Admin, Editor)
+- [x] Set up analytics (Plausible or Vercel Analytics)
+- [x] SEO metadata setup (Open Graph, structured data)
 
 ### Success Criteria
 

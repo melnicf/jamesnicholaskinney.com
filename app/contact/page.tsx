@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
 import { PageContainer } from "@/components/page-container";
@@ -8,6 +9,19 @@ import type { PortableTextBlock } from "@portabletext/types";
 type SanityPage = {
   title?: string;
   body?: unknown;
+};
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Get in touch with James Nicholas Kinney — inquiries, booking, and media requests.",
+  openGraph: {
+    title: "Contact James Nicholas Kinney",
+    description:
+      "Get in touch with James Nicholas Kinney — inquiries, booking, and media requests.",
+    url: "/contact",
+  },
+  alternates: { canonical: "/contact" },
 };
 
 export default async function ContactPage() {

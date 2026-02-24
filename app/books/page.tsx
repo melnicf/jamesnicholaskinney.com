@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
 import { PageContainer } from "@/components/page-container";
@@ -7,6 +8,19 @@ import type { PortableTextBlock } from "@portabletext/types";
 type SanityPage = {
   title?: string;
   body?: unknown;
+};
+
+export const metadata: Metadata = {
+  title: "Books",
+  description:
+    "Published and upcoming books by James Nicholas Kinney. Summaries, purchase links, and more.",
+  openGraph: {
+    title: "Books by James Nicholas Kinney",
+    description:
+      "Published and upcoming books by James Nicholas Kinney. Summaries, purchase links, and more.",
+    url: "/books",
+  },
+  alternates: { canonical: "/books" },
 };
 
 export default async function BooksPage() {

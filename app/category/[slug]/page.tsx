@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
@@ -51,6 +52,40 @@ function formatDate(dateStr: string | null) {
   }
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const categories: Category[] = await client.fetch(CATEGORIES_QUERY);
+  const category = categories.find((c) => c.slug === slug);
+
+  if (!category) return {};
+
+  const description =
+    category.description ??
+    `Latest ${category.title} coverage — curated and framed by James Nicholas Kinney.`;
+
+  return {
+    title: category.title,
+    description,
+    openGraph: {
+      title: category.title,
+      description,
+      url: `/category/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: category.title,
+      description,
+    },
+    alternates: {
+      canonical: `/category/${slug}`,
+    },
+  };
+}
+
 export default async function CategoryPage({
   params,
 }: {
@@ -64,7 +99,7 @@ export default async function CategoryPage({
     notFound();
   }
 
-  const [articles, events] = await Promise.all([
+  const [articles, events]: [Article[], Event[]] = await Promise.all([
     client.fetch(ARTICLES_BY_CATEGORY_QUERY, { categorySlug: slug }),
     client.fetch(EVENTS_BY_CATEGORY_QUERY, { categorySlug: slug }),
   ]);

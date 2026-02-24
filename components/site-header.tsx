@@ -100,12 +100,11 @@ function NavLinks({ onLinkClick }: { onLinkClick?: () => void }) {
         </NavigationMenuTrigger>
         <NavigationMenuContent
           className={cn(
-            "min-w-[280px]",
             "border-neutral-800 bg-neutral-900 text-neutral-100",
             "group-data-[viewport=false]/navigation-menu:border-neutral-800 group-data-[viewport=false]/navigation-menu:bg-neutral-900 group-data-[viewport=false]/navigation-menu:text-neutral-100"
           )}
         >
-          <ul className="grid w-[280px] gap-1 p-2">
+          <ul className="grid gap-1 p-2 *:whitespace-nowrap">
             {CATEGORIES.map((cat) => {
               const isActive = isActivePath(pathname, cat.href);
               return (
