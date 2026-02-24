@@ -29,6 +29,26 @@ export const CATEGORIES_QUERY = `*[_type == "category" && defined(slug.current)]
   description
 }`;
 
+export const ARTICLES_BY_CATEGORY_QUERY = `*[_type == "article" && contentState == "published" && category->slug.current == $categorySlug && defined(slug.current)] | order(publishedAt desc) {
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  publishedAt,
+  category->{ title, "slug": slug.current }
+}`;
+
+export const EVENTS_BY_CATEGORY_QUERY = `*[_type == "event" && contentState == "published" && category->slug.current == $categorySlug && defined(slug.current)] | order(eventDate asc) {
+  _id,
+  title,
+  "slug": slug.current,
+  eventDate,
+  location,
+  description,
+  externalUrl,
+  category->{ title, "slug": slug.current }
+}`;
+
 export const PAGE_BY_SLUG_QUERY = `*[_type == "page" && slug.current == $slug][0] {
   _id,
   title,

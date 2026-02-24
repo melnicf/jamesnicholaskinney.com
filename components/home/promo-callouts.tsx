@@ -21,14 +21,14 @@ export function PromoCallouts() {
           </div>
         </Link>
         <Link
-          href="/speaking"
+          href="/appearances"
           className="flex items-center gap-4 rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-colors hover:border-neutral-700 hover:bg-neutral-900"
         >
           <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-neutral-800">
             <Mic2 className="size-6 text-neutral-400" />
           </div>
           <div>
-            <h3 className="font-semibold text-white">Speaking</h3>
+            <h3 className="font-semibold text-white">Appearances</h3>
             <p className="mt-1 text-sm text-neutral-500">
               Talks, keynotes, and booking
             </p>

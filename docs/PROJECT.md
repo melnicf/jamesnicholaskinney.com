@@ -182,7 +182,7 @@ AI assists with categorization, summarization, and draft copy for distribution. 
 ### Secondary Navigation
 
 - **Books** — Published/upcoming books, purchase links, summaries
-- **Speaking** — Talks, appearances, keynote topics, booking inquiry
+- **Appearances** — Talks, appearances, keynote topics, booking inquiry
 - **About** — Biography, credentials, media assets
 
 ### Utility Bar

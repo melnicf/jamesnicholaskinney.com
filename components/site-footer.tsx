@@ -11,7 +11,7 @@ import { PageContainer } from "@/components/page-container";
 const PRIMARY_LINKS = [
   { label: "About", href: "/about" },
   { label: "Books", href: "/books" },
-  { label: "Speaking", href: "/speaking" },
+  { label: "Appearances", href: "/appearances" },
   { label: "Contact", href: "/contact" },
 ] as const;
 

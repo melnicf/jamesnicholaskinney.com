@@ -11,9 +11,9 @@ type SanityPage = {
   body?: unknown;
 };
 
-export default async function SpeakingPage() {
+export default async function AppearancesPage() {
   const page: SanityPage | null = await client.fetch(PAGE_BY_SLUG_QUERY, {
-    slug: "speaking",
+    slug: "appearances",
   });
 
   const bodyBlocks =
@@ -25,7 +25,7 @@ export default async function SpeakingPage() {
     <PageContainer size="narrow" className="py-8 md:py-12">
       <article>
         <h1 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
-          {page?.title ?? "Speaking"}
+          {page?.title ?? "Appearances"}
         </h1>
         {bodyBlocks ? (
           <div className="mt-8">
@@ -35,7 +35,7 @@ export default async function SpeakingPage() {
           <p className="mt-6 text-neutral-500">
             Talks, appearances, keynote topics, and booking information.
             Add content in Sanity Studio by creating a page with slug
-            &quot;speaking&quot;.
+            &quot;appearances&quot;.
           </p>
         )}
         <div className="mt-10">

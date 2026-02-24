@@ -37,7 +37,7 @@ Used to build the public-facing website.
 - Home feed
 - Category pages (Business & Tech, Politics & Policy, Sports & Entertainment, Arts & Culture)
 - Content detail pages
-- Static pages (About, Books, Speaking)
+- Static pages (About, Books, Appearances)
 - Video embeds
 - SEO metadata
 

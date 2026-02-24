@@ -78,7 +78,7 @@ Ship a credible, fast, press-ready headquarters.
 | **Category pages**   | Business & Tech, Politics & Policy, Sports & Entertainment, Arts & Culture |
 | **About page**       | Biography, credentials, media assets                  |
 | **Books page**       | Published/upcoming books, purchase links, summaries   |
-| **Speaking page**    | Talks, appearances, keynote topics, booking inquiry   |
+| **Appearances page** | Talks, appearances, keynote topics, booking inquiry   |
 | **Contact page**     | Contact information / inquiry form                    |
 | **CMS setup**        | Sanity with roles and permissions, content schemas     |
 
@@ -89,7 +89,7 @@ Ship a credible, fast, press-ready headquarters.
 - [x] Create Home page with modular sections
 - [x] Create Category page template
 - [x] Create Content Detail page template
-- [x] Build About, Books, Speaking, Contact pages
+- [x] Build About, Books, Appearances, Contact pages
 - [ ] Implement editorial content states (Ingested → Needs Review → Approved → Published)
 - [ ] Configure role-based permissions (Admin, Editor)
 - [ ] Set up analytics (Plausible or Vercel Analytics)
