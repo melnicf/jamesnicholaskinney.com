@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -38,6 +39,8 @@ const PRIMARY_LINKS = [
 ] as const;
 
 const LOGO_WORDMARK_WHITE = "/logos/SVG/Logo=Kinney-Wordmark-White.svg";
+const LOGO_K_ARROWS_WHITE = "/logos/SVG/Kinney-K-Arrows-White.svg";
+const SCROLL_THRESHOLD = 50;
 
 // Nav link base styles + active state (current page stays highlighted)
 // When active, override focus styles so focused link doesn’t flash accent/white
@@ -148,13 +151,33 @@ function NavLinks({ onLinkClick }: { onLinkClick?: () => void }) {
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > SCROLL_THRESHOLD);
+  }, []);
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-neutral-800 bg-neutral-950">
-      {/* Utility bar */}
-      <div className="flex h-9 items-center justify-end border-b border-neutral-800 px-4 md:px-6">
+      {/* Utility bar — collapses on scroll */}
+      <div
+        className={cn(
+          "flex items-center justify-end border-b border-neutral-800 px-4 transition-all duration-300 ease-in-out md:px-6",
+          scrolled
+            ? "h-0 overflow-hidden border-b-0 opacity-0"
+            : "h-9 opacity-100"
+        )}
+      >
         <Link
           href="/studio"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-xs font-medium text-neutral-400 hover:text-neutral-200"
         >
           Studio
@@ -165,7 +188,7 @@ export function SiteHeader() {
       <div className="flex h-16 items-center justify-between gap-4 px-4 md:px-6">
         <Link
           href="/"
-          className="flex shrink-0 items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+          className="relative flex shrink-0 items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
           aria-label="James Nicholas Kinney – Home"
         >
           <Image
@@ -173,8 +196,25 @@ export function SiteHeader() {
             alt="James Nicholas Kinney"
             width={160}
             height={44}
-            className="h-9 w-auto"
+            className={cn(
+              "h-9 w-auto transition-all duration-300 ease-in-out",
+              scrolled
+                ? "pointer-events-none max-w-0 opacity-0"
+                : "max-w-[160px] opacity-100"
+            )}
             priority
+          />
+          <Image
+            src={LOGO_K_ARROWS_WHITE}
+            alt="James Nicholas Kinney"
+            width={36}
+            height={36}
+            className={cn(
+              "h-8 w-auto transition-all duration-300 ease-in-out",
+              scrolled
+                ? "max-w-[36px] opacity-100"
+                : "pointer-events-none max-w-0 opacity-0"
+            )}
           />
         </Link>
 
@@ -253,6 +293,8 @@ export function SiteHeader() {
               })}
               <Link
                 href="/studio"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-4 rounded-md px-3 py-2 text-sm text-neutral-500 hover:bg-neutral-800 hover:text-neutral-300"
               >
                 Studio

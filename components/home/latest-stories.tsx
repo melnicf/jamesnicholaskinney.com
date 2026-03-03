@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { ARTICLES_QUERY } from "@/sanity/lib/queries";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -23,6 +24,7 @@ type Article = {
   slug: string;
   excerpt?: string | null;
   publishedAt?: string | null;
+  imageUrl?: string | null;
   category?: { title: string; slug: string } | null;
 };
 
@@ -48,7 +50,18 @@ export async function LatestStories() {
         {articles.slice(0, 6).map((article) => (
           <li key={article._id}>
             <Link href={`/article/${article.slug}`}>
-              <Card className="h-full border-neutral-800 bg-neutral-900/50 transition-colors hover:border-neutral-700 hover:bg-neutral-900">
+              <Card className="h-full overflow-hidden border-neutral-800 bg-neutral-900/50 transition-colors hover:border-neutral-700 hover:bg-neutral-900">
+                {article.imageUrl && (
+                  <div className="relative aspect-[16/9] w-full">
+                    <Image
+                      src={article.imageUrl}
+                      alt={article.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
+                )}
                 <CardHeader className="space-y-2 px-4 py-4 md:px-5 md:py-5">
                   {article.category && (
                     <Badge

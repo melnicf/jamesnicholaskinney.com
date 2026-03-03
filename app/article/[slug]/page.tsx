@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { ARTICLE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
 import { PageContainer } from "@/components/page-container";
@@ -20,6 +21,8 @@ type Article = {
   seoDescription?: string | null;
   sourceName?: string | null;
   sourceUrl?: string | null;
+  imageUrl?: string | null;
+  imageAlt?: string | null;
 };
 
 function formatDate(dateStr: string | null) {
@@ -62,6 +65,9 @@ export async function generateMetadata({
       publishedTime: article.publishedAt ?? undefined,
       section: article.category?.title,
       url: `/article/${article.slug}`,
+      ...(article.imageUrl && {
+        images: [{ url: article.imageUrl }],
+      }),
     },
     twitter: {
       card: "summary_large_image",
@@ -148,6 +154,18 @@ export default async function ArticlePage({
           >
             {formatDate(article.publishedAt ?? null)}
           </time>
+          {article.imageUrl && (
+            <div className="relative mt-6 aspect-video overflow-hidden rounded-lg">
+              <Image
+                src={article.imageUrl}
+                alt={article.imageAlt ?? article.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 720px"
+                priority
+              />
+            </div>
+          )}
           {article.excerpt && (
             <p className="mt-4 text-lg text-neutral-400">{article.excerpt}</p>
           )}

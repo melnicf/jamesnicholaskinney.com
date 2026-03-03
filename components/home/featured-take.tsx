@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { ARTICLES_QUERY } from "@/sanity/lib/queries";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +10,7 @@ type Article = {
   slug: string;
   excerpt?: string | null;
   publishedAt?: string | null;
+  imageUrl?: string | null;
   category?: { title: string; slug: string } | null;
 };
 
@@ -47,24 +49,38 @@ export async function FeaturedTake() {
       <h2 className="text-xl font-semibold text-white">Featured Take</h2>
       <Link
         href={`/article/${featured.slug}`}
-        className="mt-6 block rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-colors hover:border-neutral-700 hover:bg-neutral-900"
+        className="mt-6 block overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900/50 transition-colors hover:border-neutral-700 hover:bg-neutral-900 md:flex md:flex-row-reverse"
       >
-        {featured.category && (
-          <Badge
-            variant="secondary"
-            className="mb-3 w-fit border-neutral-700 bg-neutral-800 text-neutral-300"
-          >
-            {featured.category.title}
-          </Badge>
+        {featured.imageUrl && (
+          <div className="relative aspect-video md:aspect-auto md:w-2/5">
+            <Image
+              src={featured.imageUrl}
+              alt={featured.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 40vw"
+              priority
+            />
+          </div>
         )}
-        <h3 className="text-xl font-semibold text-white">{featured.title}</h3>
-        <p className="mt-2 text-neutral-400">{featured.excerpt ?? ""}</p>
-        <time
-          className="mt-4 block text-sm text-neutral-500"
-          dateTime={featured.publishedAt ?? undefined}
-        >
-          {formatDate(featured.publishedAt ?? null)}
-        </time>
+        <div className={`p-6 ${featured.imageUrl ? "md:w-3/5" : ""}`}>
+          {featured.category && (
+            <Badge
+              variant="secondary"
+              className="mb-3 w-fit border-neutral-700 bg-neutral-800 text-neutral-300"
+            >
+              {featured.category.title}
+            </Badge>
+          )}
+          <h3 className="text-xl font-semibold text-white">{featured.title}</h3>
+          <p className="mt-2 text-neutral-400">{featured.excerpt ?? ""}</p>
+          <time
+            className="mt-4 block text-sm text-neutral-500"
+            dateTime={featured.publishedAt ?? undefined}
+          >
+            {formatDate(featured.publishedAt ?? null)}
+          </time>
+        </div>
       </Link>
     </section>
   );
