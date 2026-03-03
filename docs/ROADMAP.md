@@ -103,9 +103,10 @@ Ship a credible, fast, press-ready headquarters.
 
 ---
 
-## Phase 3 — Aggregation Engine
+## Phase 3 — Aggregation Engine 🔜
 
 **Duration:** Weeks 4–5
+**Status:** In progress
 
 ### Objective
 
@@ -129,16 +130,16 @@ Enable daily freshness and habit formation.
 
 ### Technical Tasks
 
-- [ ] Set up PostgreSQL database (Neon or Supabase)
-- [ ] Build RSS ingestion serverless functions
-- [ ] Implement content normalization pipeline
-- [ ] Build deduplication system (hash-based)
-- [ ] Integrate OpenAI API for auto-categorization
-- [ ] Integrate OpenAI API for summary generation
-- [ ] Build editorial review queue in Sanity
-- [ ] Implement content state transitions
-- [ ] Set up scheduled ingestion (cron via Vercel)
-- [ ] Add ingestion logging and error handling
+- [x] Set up PostgreSQL database (Neon)
+- [x] Build RSS ingestion serverless functions
+- [x] Implement content normalization pipeline
+- [x] Build deduplication system (hash-based)
+- [x] Integrate OpenAI API for auto-categorization
+- [x] Integrate OpenAI API for summary generation
+- [x] Build editorial review queue in Sanity
+- [x] Implement content state transitions
+- [x] Set up scheduled ingestion (cron via Vercel)
+- [x] Add ingestion logging and error handling
 
 ### Success Criteria
 
