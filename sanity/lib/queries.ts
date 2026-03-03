@@ -9,6 +9,7 @@ export const ARTICLES_QUERY = `*[_type == "article" && contentState == "publishe
   "slug": slug.current,
   excerpt,
   publishedAt,
+  "imageUrl": mainImage.asset->url,
   category->{ title, "slug": slug.current }
 }`;
 
@@ -23,6 +24,8 @@ export const ARTICLE_BY_SLUG_QUERY = `*[_type == "article" && slug.current == $s
   seoDescription,
   sourceName,
   sourceUrl,
+  "imageUrl": mainImage.asset->url,
+  "imageAlt": mainImage.alt,
   category->{ title, "slug": slug.current }
 }`;
 
@@ -39,6 +42,7 @@ export const ARTICLES_BY_CATEGORY_QUERY = `*[_type == "article" && contentState 
   "slug": slug.current,
   excerpt,
   publishedAt,
+  "imageUrl": mainImage.asset->url,
   category->{ title, "slug": slug.current }
 }`;
 

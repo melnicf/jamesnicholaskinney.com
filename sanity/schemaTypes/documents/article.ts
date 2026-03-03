@@ -35,6 +35,20 @@ export const article = defineType({
       group: "content",
     }),
     defineField({
+      name: "mainImage",
+      title: "Main Image",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+        }),
+      ],
+      group: "content",
+    }),
+    defineField({
       name: "excerpt",
       title: "Excerpt",
       type: "text",
@@ -125,8 +139,9 @@ export const article = defineType({
       state: "contentState",
       category: "category.title",
       date: "publishedAt",
+      media: "mainImage",
     },
-    prepare({ title, state, category, date }) {
+    prepare({ title, state, category, date, media }) {
       const stateLabel =
         CONTENT_STATES.find((s) => s.value === state)?.title ?? state;
       const dateStr = date
@@ -138,6 +153,7 @@ export const article = defineType({
       return {
         title: title ?? "Untitled",
         subtitle: [stateLabel, category, dateStr].filter(Boolean).join(" · "),
+        media,
       };
     },
   },

@@ -1,9 +1,23 @@
-import { defineConfig } from "sanity";
+import { defineConfig, definePlugin } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
+import { CheckmarkCircleIcon } from "@sanity/icons";
 import { schemaTypes } from "./sanity/schemaTypes";
 import { deskStructure } from "./sanity/desk-structure";
 import { SetAndPublishAction } from "./sanity/actions/set-and-publish";
+import { BulkReviewTool } from "./sanity/tools/bulk-review";
+
+const bulkReviewPlugin = definePlugin({
+  name: "bulk-review",
+  tools: [
+    {
+      name: "bulk-review",
+      title: "Review Queue",
+      icon: CheckmarkCircleIcon,
+      component: BulkReviewTool,
+    },
+  ],
+});
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
@@ -17,6 +31,7 @@ export default defineConfig({
   plugins: [
     structureTool({ structure: deskStructure }),
     visionTool(),
+    bulkReviewPlugin(),
   ],
   schema: {
     types: schemaTypes,

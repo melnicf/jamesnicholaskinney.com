@@ -9,6 +9,8 @@ import {
   TagIcon,
   DocumentIcon,
   CogIcon,
+  LinkIcon,
+  RobotIcon,
 } from "@sanity/icons";
 
 function editorialGroup(
@@ -70,6 +72,21 @@ export function deskStructure(S: StructureBuilder) {
                 "ingested",
                 DocumentTextIcon,
               ),
+              S.divider(),
+              editorialGroup(
+                S,
+                "Events — Needs Review",
+                "event",
+                "needs_review",
+                EyeOpenIcon,
+              ),
+              editorialGroup(
+                S,
+                "Events — Published",
+                "event",
+                "published",
+                PublishIcon,
+              ),
             ]),
         ),
 
@@ -104,6 +121,38 @@ export function deskStructure(S: StructureBuilder) {
         .title("Pages")
         .icon(DocumentIcon)
         .child(S.documentTypeList("page").title("Pages")),
+
+      S.divider(),
+
+      S.listItem()
+        .title("Aggregation")
+        .icon(RobotIcon)
+        .child(
+          S.list()
+            .title("Aggregation")
+            .items([
+              S.listItem()
+                .title("Feed Sources")
+                .icon(LinkIcon)
+                .child(
+                  S.documentTypeList("feedSource").title("Feed Sources"),
+                ),
+              S.divider(),
+              S.listItem()
+                .title("Recently Ingested")
+                .icon(DocumentTextIcon)
+                .child(
+                  S.documentList()
+                    .title("Recently Ingested")
+                    .filter(
+                      `_type == "article" && defined(sourceUrl) && contentState in ["ingested", "needs_review"]`,
+                    )
+                    .defaultOrdering([
+                      { field: "_createdAt", direction: "desc" },
+                    ]),
+                ),
+            ]),
+        ),
 
       S.divider(),
 
