@@ -149,9 +149,38 @@ Enable daily freshness and habit formation.
 
 ---
 
-## Phase 4 — Distribution Studio
+## Phase 4 — Editorial & Engagement
 
 **Duration:** Weeks 6–7
+
+### Objective
+
+Surface value immediately, improve shareability, and highlight upcoming content.
+
+### Deliverables
+
+- [ ] **Bio** — Biography with credentials (Global Chief AI Officer, author, certifications, AI For Better President)
+- [ ] **Books** — SustAIning Leadership, AI + Mental Health with purchase links (`a.co/d/0d5qkYJe`, `a.co/d/0iKhwsov`)
+- [ ] **Contact** — Contact info (hello@jamesnicholaskinney.com)
+- [ ] **This week articles summary** — Curated digest of the week’s best articles
+- [ ] **Share icons on articles** — Easy sharing to social channels from article pages
+- [ ] **Punchy header** — First thing you see; explains immediately the website’s value
+- [ ] **What’s coming next** — Upcoming events section on top of the page next to main section
+- [ ] **Featured article** — AI-related featured article prominently displayed
+- [ ] **YouTube video** — Wire/embed YouTube video on site
+
+### Success Criteria
+
+- Bio, Books, and Contact pages are complete and accurate
+- Visitors immediately understand the site’s value proposition
+- Articles are easy to share
+- Upcoming events and featured content drive engagement
+
+---
+
+## Phase 5 — Distribution Studio
+
+**Duration:** Weeks 8–9
 
 ### Objective
 
@@ -188,9 +217,9 @@ Make distribution effortless and consistent.
 
 ---
 
-## Phase 5 — QA & Soft Launch
+## Phase 6 — QA & Soft Launch
 
-**Duration:** Weeks 8–9
+**Duration:** Weeks 10–11
 
 ### Objective
 
@@ -219,9 +248,9 @@ Stabilize and prepare for public visibility.
 
 ---
 
-## Phase 6 — Public Launch & Iteration
+## Phase 7 — Public Launch & Iteration
 
-**Duration:** Weeks 10–11
+**Duration:** Weeks 12–13
 
 ### Objective
 
@@ -275,8 +304,9 @@ The MVP is complete when:
 - [x] Phase 1: Foundation & alignment docs locked
 - [ ] Phase 2: Site publishes content, CMS operational
 - [ ] Phase 3: Aggregation pipeline delivers daily content
-- [ ] Phase 4: Distribution drafts generated consistently
-- [ ] Phase 5: QA passed, system stable
-- [ ] Phase 6: Public launch, audience engaged
+- [ ] Phase 4: Editorial & engagement features live (summary, share, punchy header, upcoming events, AI featured)
+- [ ] Phase 5: Distribution drafts generated consistently
+- [ ] Phase 6: QA passed, system stable
+- [ ] Phase 7: Public launch, audience engaged
 
 **The site publishes content daily, aggregation and review workflows are reliable, LinkedIn distribution is consistent, weekly YouTube recaps are live, and ongoing operation requires minimal effort.**
