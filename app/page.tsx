@@ -50,6 +50,7 @@ export default function Home() {
       />
 
       <HeroSection />
+      <ThisWeekDigest />
 
       {/* Featured article + Upcoming events — side by side on desktop */}
       <section className="py-12">
@@ -60,7 +61,6 @@ export default function Home() {
         </div>
       </section>
 
-      <ThisWeekDigest />
       <LatestStories />
       <VideoEmbedSection />
       <CategoryHighlights />
