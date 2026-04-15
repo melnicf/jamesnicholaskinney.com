@@ -46,7 +46,7 @@ function formatArticleList(articles: ArticleInput[]): string {
   return articles
     .map(
       (a, i) =>
-        `${i + 1}. "${a.title}" (${a.category?.title ?? "Uncategorized"})${a.excerpt ? ` — ${a.excerpt}` : ""}`,
+        `${i + 1}. ${a.title}${a.excerpt ? ` — ${a.excerpt}` : ""}`,
     )
     .join("\n");
 }
@@ -58,8 +58,8 @@ export async function generateWeeklySummaryText(
   if (articles.length === 0) return null;
   const articleList = formatArticleList(articles);
   return callOpenAI(
-    `You are an editorial voice for James Nicholas Kinney's media site covering business, technology, politics, and culture. Write a concise 2-3 sentence digest summarizing the key themes from this week's published articles. Be direct, insightful, and authoritative. Do not list individual articles — synthesize the overarching narrative. Address the reader implicitly ("This week…" is fine as an opener).`,
-    `Here are this week's articles:\n\n${articleList}`,
+    `You write short editorial digests for James Nicholas Kinney's media site. Synthesize the articles below into 2-3 sentences that capture what's interesting right now across business, technology, politics, and culture. Write the way a sharp editor would — concise, opinionated, and conversational. Vary your sentence openings naturally; never start with "This week," "Recent coverage," or any stock phrase. Do not mention article titles, author names, category labels, or publication metadata. Just distill the ideas.`,
+    `Articles:\n\n${articleList}`,
   );
 }
 
@@ -73,8 +73,8 @@ export async function generateCategorySummaryText(
   const slice = articles.slice(0, 12);
   const articleList = formatArticleList(slice);
   return callOpenAI(
-    `You are an editorial voice for James Nicholas Kinney's media site covering business, technology, politics, and culture. Write a concise 2-3 sentence digest summarizing the key themes from recent ${categoryTitle} coverage on the site. Be direct, insightful, and authoritative. Do not list individual articles by title — synthesize the narrative for this vertical. Address the reader implicitly (opening with the category or "Recent coverage…" is fine).`,
-    `Category: ${categoryTitle} (slug: ${categorySlug})\n\nRecent articles in this category:\n\n${articleList}`,
+    `You write short editorial digests for the ${categoryTitle} vertical of James Nicholas Kinney's media site. Synthesize the articles below into 2-3 sentences that capture the throughline — what themes connect them, what tensions are emerging, what's worth paying attention to. Write the way a sharp editor would — concise, opinionated, and conversational. Never open with "Recent coverage," "In recent weeks," or any formulaic phrase. Do not mention article titles, author names, category labels, dates, or publication metadata. Just distill the ideas as if you're telling a well-read friend what's been interesting lately.`,
+    `Articles:\n\n${articleList}`,
   );
 }
 

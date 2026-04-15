@@ -33,6 +33,12 @@ export const event = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "endDate",
+      title: "End Date",
+      type: "datetime",
+      description: "Optional end date for multi-day events.",
+    }),
+    defineField({
       name: "location",
       title: "Location",
       type: "string",

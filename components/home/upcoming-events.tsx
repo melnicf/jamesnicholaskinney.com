@@ -8,14 +8,14 @@ type Event = {
   title: string;
   slug: string;
   eventDate?: string | null;
+  endDate?: string | null;
   location?: string | null;
   description?: string | null;
   externalUrl?: string | null;
   category?: { title: string; slug: string } | null;
 };
 
-function formatEventDate(dateStr: string | null) {
-  if (!dateStr) return "";
+function formatSingleDate(dateStr: string) {
   try {
     return new Date(dateStr).toLocaleDateString("en-US", {
       month: "short",
@@ -24,6 +24,48 @@ function formatEventDate(dateStr: string | null) {
     });
   } catch {
     return "";
+  }
+}
+
+function formatEventDateRange(
+  startDateStr: string | null,
+  endDateStr: string | null,
+) {
+  if (!startDateStr) return "";
+  if (!endDateStr) return formatSingleDate(startDateStr);
+
+  try {
+    const startDate = new Date(startDateStr);
+    const endDate = new Date(endDateStr);
+
+    const sameYear =
+      startDate.getUTCFullYear() === endDate.getUTCFullYear();
+    const sameMonth = sameYear && startDate.getUTCMonth() === endDate.getUTCMonth();
+
+    if (sameMonth) {
+      return `${startDate.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      })} - ${endDate.toLocaleDateString("en-US", {
+        day: "numeric",
+        year: "numeric",
+      })}`;
+    }
+
+    if (sameYear) {
+      return `${startDate.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      })} - ${endDate.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })}`;
+    }
+
+    return `${formatSingleDate(startDateStr)} - ${formatSingleDate(endDateStr)}`;
+  } catch {
+    return formatSingleDate(startDateStr);
   }
 }
 
@@ -78,7 +120,7 @@ export async function UpcomingEvents() {
                 {event.eventDate && (
                   <span className="inline-flex items-center gap-1">
                     <CalendarDays className="size-3" />
-                    {formatEventDate(event.eventDate)}
+                    {formatEventDateRange(event.eventDate, event.endDate ?? null)}
                   </span>
                 )}
                 {event.location && (
