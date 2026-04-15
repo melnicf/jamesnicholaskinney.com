@@ -2,10 +2,10 @@ import Link from "next/link";
 import {
   Linkedin,
   Youtube,
-  X,
   Instagram,
   ExternalLink,
 } from "lucide-react";
+import { XTwitterIcon } from "@/components/icons/x-twitter";
 import { PageContainer } from "@/components/page-container";
 
 const PRIMARY_LINKS = [
@@ -23,10 +23,10 @@ const CATEGORY_LINKS = [
 ] as const;
 
 const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/jamesnicholaskinney", icon: Linkedin },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/jameskinney", icon: Linkedin },
   { label: "YouTube", href: "https://www.youtube.com/@jamesnicholaskinney", icon: Youtube },
-  { label: "X", href: "https://x.com/jaborkinney", icon: X },
-  { label: "Instagram", href: "https://instagram.com", icon: Instagram },
+  { label: "X", href: "https://x.com/jaborkinney", icon: XTwitterIcon },
+  { label: "Instagram", href: "https://www.instagram.com/jamesnicholaskinney", icon: Instagram },
 ] as const;
 
 function SocialIconLink({

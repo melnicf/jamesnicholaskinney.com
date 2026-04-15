@@ -87,6 +87,18 @@ export const UPCOMING_EVENTS_QUERY = `*[_type == "event" && eventDate >= $now &&
   category->{ title, "slug": slug.current }
 }`;
 
+export const ALL_EVENTS_QUERY = `*[_type == "event" && defined(slug.current)] | order(eventDate asc) {
+  _id,
+  title,
+  "slug": slug.current,
+  eventDate,
+  endDate,
+  location,
+  description,
+  externalUrl,
+  category->{ title, "slug": slug.current }
+}`;
+
 export const FEATURED_AI_ARTICLE_QUERY = `*[_type == "article" && contentState == "published" && defined(slug.current) && category->slug.current == "business-tech" && defined(mainImage.asset)] | order(publishedAt desc) [0] {
   _id,
   title,

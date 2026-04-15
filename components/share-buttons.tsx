@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Linkedin, X, Facebook, Link2, Check } from "lucide-react";
+import { Linkedin, Facebook, Link2, Check } from "lucide-react";
+import { XTwitterIcon } from "@/components/icons/x-twitter";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -23,7 +24,7 @@ const SHARE_CHANNELS = [
   },
   {
     label: "X",
-    icon: X,
+    icon: XTwitterIcon,
     getUrl: (url: string, title: string) =>
       `https://x.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
   },

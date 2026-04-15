@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   return (
-    <section className="pt-14 pb-8 md:pt-20 md:pb-10">
+    <section>
       <p className="text-sm font-medium uppercase tracking-widest text-neutral-500">
         James Nicholas Kinney
       </p>

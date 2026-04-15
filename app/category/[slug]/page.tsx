@@ -12,7 +12,18 @@ import { PageContainer } from "@/components/page-container";
 import { CategorySummary } from "@/components/category/category-summary";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+} from "@/components/ui/pagination";
 import { Calendar } from "lucide-react";
+
+const ARTICLES_PER_PAGE = 9;
 
 type Category = {
   _id: string;
@@ -53,6 +64,27 @@ function formatDate(dateStr: string | null) {
   } catch {
     return "";
   }
+}
+
+function pageHref(slug: string, page: number) {
+  return page <= 1 ? `/category/${slug}` : `/category/${slug}?page=${page}`;
+}
+
+function getVisiblePages(current: number, total: number): (number | "ellipsis")[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+
+  const pages: (number | "ellipsis")[] = [1];
+
+  if (current > 3) pages.push("ellipsis");
+
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  for (let i = start; i <= end; i++) pages.push(i);
+
+  if (current < total - 2) pages.push("ellipsis");
+
+  pages.push(total);
+  return pages;
 }
 
 export async function generateStaticParams() {
@@ -96,10 +128,14 @@ export async function generateMetadata({
 
 export default async function CategoryPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string }>;
 }) {
   const { slug } = await params;
+  const { page: pageParam } = await searchParams;
+
   const categories: Category[] = await client.fetch(CATEGORIES_QUERY);
   const category = categories.find((c) => c.slug === slug);
 
@@ -114,6 +150,15 @@ export default async function CategoryPage({
 
   const hasEvents = events.length > 0;
   const hasArticles = articles.length > 0;
+
+  const currentPage = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
+  const totalPages = Math.max(1, Math.ceil(articles.length / ARTICLES_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedArticles = articles.slice(
+    (safePage - 1) * ARTICLES_PER_PAGE,
+    safePage * ARTICLES_PER_PAGE,
+  );
+  const showPagination = totalPages > 1;
 
   return (
     <PageContainer size="wide" className="py-8 md:py-12">
@@ -185,10 +230,10 @@ export default async function CategoryPage({
       )}
 
       {hasArticles && (
-        <section className={hasEvents ? "mt-12" : "mt-12"}>
+        <section className="mt-12">
           <h2 className="mb-4 text-lg font-medium text-white">Articles</h2>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
+            {paginatedArticles.map((article) => (
               <li key={article._id}>
                 <Link href={`/article/${article.slug}`}>
                   <Card className="h-full overflow-hidden border-neutral-800 bg-neutral-900/50 transition-colors hover:border-neutral-700 hover:bg-neutral-900">
@@ -224,6 +269,41 @@ export default async function CategoryPage({
               </li>
             ))}
           </ul>
+
+          {showPagination && (
+            <Pagination className="mt-8">
+              <PaginationContent>
+                {safePage > 1 && (
+                  <PaginationItem>
+                    <PaginationPrevious href={pageHref(slug, safePage - 1)} />
+                  </PaginationItem>
+                )}
+
+                {getVisiblePages(safePage, totalPages).map((p, i) =>
+                  p === "ellipsis" ? (
+                    <PaginationItem key={`e-${i}`}>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                  ) : (
+                    <PaginationItem key={p}>
+                      <PaginationLink
+                        href={pageHref(slug, p)}
+                        isActive={p === safePage}
+                      >
+                        {p}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ),
+                )}
+
+                {safePage < totalPages && (
+                  <PaginationItem>
+                    <PaginationNext href={pageHref(slug, safePage + 1)} />
+                  </PaginationItem>
+                )}
+              </PaginationContent>
+            </Pagination>
+          )}
         </section>
       )}
 

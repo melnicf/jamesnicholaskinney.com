@@ -1,6 +1,5 @@
 import { PageContainer } from "@/components/page-container";
 import { HeroSection } from "@/components/home/hero-section";
-import { FeaturedArticle } from "@/components/home/featured-article";
 import { UpcomingEvents } from "@/components/home/upcoming-events";
 import { ThisWeekDigest } from "@/components/home/this-week-digest";
 import { LatestStories } from "@/components/home/latest-stories";
@@ -32,7 +31,8 @@ const personJsonLd = {
   url: SITE_URL,
   jobTitle: "Global Chief AI Officer & Author",
   sameAs: [
-    "https://www.linkedin.com/in/jamesnicholaskinney",
+    "https://www.linkedin.com/in/jameskinney",
+    "https://www.instagram.com/jamesnicholaskinney",
     "https://www.youtube.com/@jamesnicholaskinney",
   ],
 };
@@ -49,18 +49,14 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
-      <HeroSection />
-      <ThisWeekDigest />
-
-      {/* Featured article + Upcoming events — side by side on desktop */}
-      <section className="py-12">
-        <h2 className="text-xl font-semibold text-white">Featured</h2>
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_340px]">
-          <FeaturedArticle />
+      <section className="grid items-start gap-8 pt-14 pb-8 md:pt-20 md:pb-10 lg:grid-cols-[1fr_320px] lg:gap-12">
+        <HeroSection />
+        <div className="lg:pt-6">
           <UpcomingEvents />
         </div>
       </section>
 
+      <ThisWeekDigest />
       <LatestStories />
       <VideoEmbedSection />
       <CategoryHighlights />

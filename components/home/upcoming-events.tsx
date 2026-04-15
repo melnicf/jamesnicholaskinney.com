@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CalendarDays, MapPin, ExternalLink } from "lucide-react";
+import { MapPin, ExternalLink, ArrowRight } from "lucide-react";
 import { client } from "@/sanity/lib/client";
 import { UPCOMING_EVENTS_QUERY } from "@/sanity/lib/queries";
 
@@ -15,57 +15,37 @@ type Event = {
   category?: { title: string; slug: string } | null;
 };
 
-function formatSingleDate(dateStr: string) {
-  try {
-    return new Date(dateStr).toLocaleDateString("en-US", {
+function parseDateParts(dateStr: string) {
+  const d = new Date(dateStr);
+  return {
+    month: d.toLocaleDateString("en-US", { month: "short" }),
+    day: d.getUTCDate().toString(),
+  };
+}
+
+function formatDateRange(start: string | null, end: string | null) {
+  if (!start) return "";
+  const fmt = (s: string) =>
+    new Date(s).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
     });
-  } catch {
-    return "";
-  }
-}
-
-function formatEventDateRange(
-  startDateStr: string | null,
-  endDateStr: string | null,
-) {
-  if (!startDateStr) return "";
-  if (!endDateStr) return formatSingleDate(startDateStr);
-
+  if (!end) return fmt(start);
   try {
-    const startDate = new Date(startDateStr);
-    const endDate = new Date(endDateStr);
-
-    const sameYear =
-      startDate.getUTCFullYear() === endDate.getUTCFullYear();
-    const sameMonth = sameYear && startDate.getUTCMonth() === endDate.getUTCMonth();
-
+    const s = new Date(start);
+    const e = new Date(end);
+    const sameYear = s.getUTCFullYear() === e.getUTCFullYear();
+    const sameMonth = sameYear && s.getUTCMonth() === e.getUTCMonth();
     if (sameMonth) {
-      return `${startDate.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      })} - ${endDate.toLocaleDateString("en-US", {
-        day: "numeric",
-        year: "numeric",
-      })}`;
+      return `${s.toLocaleDateString("en-US", { month: "short", day: "numeric" })} – ${e.toLocaleDateString("en-US", { day: "numeric", year: "numeric" })}`;
     }
-
     if (sameYear) {
-      return `${startDate.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      })} - ${endDate.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })}`;
+      return `${s.toLocaleDateString("en-US", { month: "short", day: "numeric" })} – ${e.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`;
     }
-
-    return `${formatSingleDate(startDateStr)} - ${formatSingleDate(endDateStr)}`;
+    return `${fmt(start)} – ${fmt(end)}`;
   } catch {
-    return formatSingleDate(startDateStr);
+    return fmt(start);
   }
 }
 
@@ -73,77 +53,81 @@ export async function UpcomingEvents() {
   const now = new Date().toISOString();
   const events: Event[] = await client.fetch(UPCOMING_EVENTS_QUERY, { now });
 
-  if (events.length === 0) {
-    return (
-      <div className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-5">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-500">
-          What&apos;s Coming
-        </h3>
-        <p className="mt-3 text-sm text-neutral-500">
-          No upcoming events scheduled. Check back soon.
-        </p>
-      </div>
-    );
-  }
+  if (events.length === 0) return null;
 
   return (
-    <div className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-5">
-      <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-500">
-        What&apos;s Coming
+    <div className="flex flex-col rounded-lg border border-neutral-800 bg-neutral-900/40">
+      <h3 className="px-5 pt-4 pb-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+        Events Coming Up
       </h3>
-      <div className="mt-4 space-y-4">
-        {events.map((event) => {
-          const Wrapper = event.externalUrl ? "a" : "div";
-          const wrapperProps = event.externalUrl
-            ? {
-                href: event.externalUrl,
-                target: "_blank" as const,
-                rel: "noopener noreferrer",
-              }
-            : {};
 
-          return (
-            <Wrapper
-              key={event._id}
-              {...wrapperProps}
-              className="group block rounded-md border border-neutral-800 bg-neutral-900/30 p-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/50"
-            >
-              <div className="flex items-start justify-between gap-2">
-                <h4 className="font-medium leading-snug text-white">
-                  {event.title}
-                </h4>
-                {event.externalUrl && (
-                  <ExternalLink className="mt-0.5 size-3.5 shrink-0 text-neutral-500 transition-colors group-hover:text-neutral-300" />
-                )}
-              </div>
-              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-400">
-                {event.eventDate && (
-                  <span className="inline-flex items-center gap-1">
-                    <CalendarDays className="size-3" />
-                    {formatEventDateRange(event.eventDate, event.endDate ?? null)}
+      <div className="divide-y divide-neutral-800/60">
+        {events.slice(0, 4).map((event) => {
+          const dateParts = event.eventDate
+            ? parseDateParts(event.eventDate)
+            : null;
+
+          const inner = (
+            <div className="group flex gap-3.5 px-5 py-3.5 transition-colors hover:bg-neutral-800/40">
+              {dateParts && (
+                <div className="flex w-10 shrink-0 flex-col items-center pt-0.5">
+                  <span className="text-[10px] font-semibold uppercase leading-none tracking-wider text-neutral-500">
+                    {dateParts.month}
                   </span>
-                )}
-                {event.location && (
-                  <span className="inline-flex items-center gap-1">
-                    <MapPin className="size-3" />
-                    {event.location}
+                  <span className="text-xl font-bold leading-tight text-white">
+                    {dateParts.day}
                   </span>
-                )}
-              </div>
-              {event.description && (
-                <p className="mt-2 line-clamp-2 text-sm text-neutral-500">
-                  {event.description}
-                </p>
+                </div>
               )}
-            </Wrapper>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-sm font-medium leading-snug text-white">
+                    {event.title}
+                  </p>
+                  {event.externalUrl && (
+                    <ExternalLink className="mt-0.5 size-3 shrink-0 text-neutral-600 transition-colors group-hover:text-neutral-400" />
+                  )}
+                </div>
+                <div className="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-[11px] text-neutral-500">
+                  {event.eventDate && (
+                    <span>
+                      {formatDateRange(event.eventDate, event.endDate ?? null)}
+                    </span>
+                  )}
+                  {event.location && (
+                    <span className="inline-flex items-center gap-0.5">
+                      <MapPin className="size-2.5" />
+                      {event.location}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
           );
+
+          if (event.externalUrl) {
+            return (
+              <a
+                key={event._id}
+                href={event.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {inner}
+              </a>
+            );
+          }
+
+          return <div key={event._id}>{inner}</div>;
         })}
       </div>
+
       <Link
         href="/appearances"
-        className="mt-4 block text-center text-sm font-medium text-neutral-400 transition-colors hover:text-white"
+        className="flex items-center justify-center gap-1 border-t border-neutral-800/60 px-5 py-3 text-xs font-medium text-neutral-500 transition-colors hover:text-white"
       >
-        View all appearances →
+        All appearances
+        <ArrowRight className="size-3" />
       </Link>
     </div>
   );
