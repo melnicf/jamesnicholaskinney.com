@@ -46,7 +46,7 @@ export const ARTICLES_BY_CATEGORY_QUERY = `*[_type == "article" && contentState 
   category->{ title, "slug": slug.current }
 }`;
 
-export const EVENTS_BY_CATEGORY_QUERY = `*[_type == "event" && contentState == "published" && category->slug.current == $categorySlug && defined(slug.current)] | order(eventDate asc) {
+export const EVENTS_BY_CATEGORY_QUERY = `*[_type == "event" && category->slug.current == $categorySlug && defined(slug.current)] | order(eventDate asc) {
   _id,
   title,
   "slug": slug.current,
@@ -74,7 +74,7 @@ export const THIS_WEEK_ARTICLES_QUERY = `*[_type == "article" && contentState ==
   category->{ title, "slug": slug.current }
 }`;
 
-export const UPCOMING_EVENTS_QUERY = `*[_type == "event" && contentState == "published" && eventDate >= $now && defined(slug.current)] | order(eventDate asc) [0...5] {
+export const UPCOMING_EVENTS_QUERY = `*[_type == "event" && eventDate >= $now && defined(slug.current)] | order(eventDate asc) [0...5] {
   _id,
   title,
   "slug": slug.current,

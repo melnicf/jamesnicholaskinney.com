@@ -1,13 +1,6 @@
 import { defineType, defineField } from "sanity";
 import { CalendarIcon } from "@sanity/icons";
 
-const CONTENT_STATES = [
-  { title: "Ingested", value: "ingested" },
-  { title: "Needs Review", value: "needs_review" },
-  { title: "Approved", value: "approved" },
-  { title: "Published", value: "published" },
-] as const;
-
 export const event = defineType({
   name: "event",
   title: "Event",
@@ -55,16 +48,6 @@ export const event = defineType({
       title: "External URL",
       type: "url",
       description: "Link to event details or registration",
-    }),
-    defineField({
-      name: "contentState",
-      title: "Content State",
-      type: "string",
-      options: {
-        list: [...CONTENT_STATES],
-        layout: "radio",
-      },
-      initialValue: "ingested",
     }),
   ],
 });

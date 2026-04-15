@@ -72,21 +72,6 @@ export function deskStructure(S: StructureBuilder) {
                 "ingested",
                 DocumentTextIcon,
               ),
-              S.divider(),
-              editorialGroup(
-                S,
-                "Events — Needs Review",
-                "event",
-                "needs_review",
-                EyeOpenIcon,
-              ),
-              editorialGroup(
-                S,
-                "Events — Published",
-                "event",
-                "published",
-                PublishIcon,
-              ),
             ]),
         ),
 
