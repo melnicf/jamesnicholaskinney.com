@@ -17,8 +17,19 @@ import type {
   SanityCategory,
 } from "./types";
 
-const MAX_ITEMS_PER_FEED = 5;
+const DEFAULT_MAX_ITEMS_PER_FEED = 15;
+const MAX_ITEMS_PER_FEED = Number.parseInt(
+  process.env.INGEST_MAX_ITEMS_PER_FEED ?? `${DEFAULT_MAX_ITEMS_PER_FEED}`,
+  10,
+);
 const CONCURRENCY = 5;
+
+function resolveMaxItemsPerFeed() {
+  if (!Number.isFinite(MAX_ITEMS_PER_FEED) || MAX_ITEMS_PER_FEED < 1) {
+    return DEFAULT_MAX_ITEMS_PER_FEED;
+  }
+  return MAX_ITEMS_PER_FEED;
+}
 
 async function runWithConcurrency<T>(
   items: T[],
@@ -53,7 +64,7 @@ async function processFeed(
   await createIngestionRun(runId, source.url);
 
   try {
-    const rawItems = (await fetchFeed(source)).slice(0, MAX_ITEMS_PER_FEED);
+    const rawItems = (await fetchFeed(source)).slice(0, resolveMaxItemsPerFeed());
     result.itemsFetched = rawItems.length;
 
     await runWithConcurrency(

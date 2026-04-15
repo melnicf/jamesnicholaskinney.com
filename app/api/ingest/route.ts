@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { runPipeline } from "@/lib/ingestion/pipeline";
 
 function isAuthorized(request: Request): boolean {
@@ -9,13 +10,14 @@ function isAuthorized(request: Request): boolean {
   return authHeader === `Bearer ${secret}`;
 }
 
-export async function GET(request: Request) {
+async function handleIngest(request: Request) {
   if (!isAuthorized(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
     const result = await runPipeline();
+    revalidatePath("/");
 
     return NextResponse.json({
       success: true,
@@ -42,35 +44,10 @@ export async function GET(request: Request) {
   }
 }
 
+export async function GET(request: Request) {
+  return handleIngest(request);
+}
+
 export async function POST(request: Request) {
-  if (!isAuthorized(request)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  try {
-    const result = await runPipeline();
-
-    return NextResponse.json({
-      success: true,
-      summary: {
-        feeds: result.feeds.length,
-        totalNew: result.totalNew,
-        totalDuplicate: result.totalDuplicate,
-        totalErrored: result.totalErrored,
-        duration: `${new Date(result.completedAt).getTime() - new Date(result.startedAt).getTime()}ms`,
-      },
-      details: result.feeds.map((f) => ({
-        feedUrl: f.feedUrl,
-        fetched: f.itemsFetched,
-        new: f.itemsNew,
-        duplicate: f.itemsDuplicate,
-        errored: f.itemsErrored,
-        errors: f.errors,
-      })),
-    });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown error";
-    console.error("Ingestion pipeline failed:", message);
-    return NextResponse.json({ error: message }, { status: 500 });
-  }
+  return handleIngest(request);
 }
