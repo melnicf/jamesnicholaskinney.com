@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { runPipeline } from "@/lib/ingestion/pipeline";
+import { refreshIngestSummaries } from "@/lib/ai/refresh-summaries";
 
 function isAuthorized(request: Request): boolean {
   const secret = process.env.CRON_SECRET;
@@ -17,7 +18,15 @@ async function handleIngest(request: Request) {
 
   try {
     const result = await runPipeline();
+
+    try {
+      await refreshIngestSummaries();
+    } catch (e) {
+      console.error("AI summary refresh failed:", e);
+    }
+
     revalidatePath("/");
+    revalidatePath("/category/[slug]", "page");
 
     return NextResponse.json({
       success: true,

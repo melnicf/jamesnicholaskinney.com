@@ -45,8 +45,10 @@ async function resetPostgres() {
   }
 
   const sql = neon(url);
-  await sql`TRUNCATE content_hashes, ingestion_runs, ingestion_item_logs`;
-  console.log("  Cleared content_hashes, ingestion_runs, ingestion_item_logs");
+  await sql`TRUNCATE content_hashes, ingestion_runs, ingestion_item_logs, ai_summaries`;
+  console.log(
+    "  Cleared content_hashes, ingestion_runs, ingestion_item_logs, ai_summaries",
+  );
 }
 
 async function main() {
