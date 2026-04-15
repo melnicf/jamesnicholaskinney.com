@@ -3,8 +3,18 @@ import { getDb } from "./client";
 let initialized = false;
 
 export async function ensureTables(): Promise<void> {
-  if (initialized) return;
   const sql = getDb();
+
+  /** Created on every call so new tables ship without requiring a process restart. */
+  await sql`
+    CREATE TABLE IF NOT EXISTS ai_summaries (
+      scope VARCHAR(128) PRIMARY KEY,
+      body TEXT NOT NULL,
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+
+  if (initialized) return;
 
   await sql`
     CREATE TABLE IF NOT EXISTS content_hashes (
@@ -138,4 +148,36 @@ export async function getRecentRuns(limit = 20) {
     ORDER BY started_at DESC
     LIMIT ${limit}
   `;
+}
+
+export async function getAiSummary(scope: string): Promise<string | null> {
+  if (!process.env.DATABASE_URL) return null;
+  try {
+    await ensureTables();
+    const sql = getDb();
+    const rows = await sql`
+      SELECT body FROM ai_summaries WHERE scope = ${scope} LIMIT 1
+    `;
+    const row = rows[0] as { body: string } | undefined;
+    return row?.body ?? null;
+  } catch (e) {
+    console.error("getAiSummary failed:", e);
+    return null;
+  }
+}
+
+export async function upsertAiSummary(scope: string, body: string): Promise<void> {
+  const sql = getDb();
+  await sql`
+    INSERT INTO ai_summaries (scope, body, updated_at)
+    VALUES (${scope}, ${body}, NOW())
+    ON CONFLICT (scope) DO UPDATE SET
+      body = EXCLUDED.body,
+      updated_at = NOW()
+  `;
+}
+
+export async function deleteAiSummary(scope: string): Promise<void> {
+  const sql = getDb();
+  await sql`DELETE FROM ai_summaries WHERE scope = ${scope}`;
 }
