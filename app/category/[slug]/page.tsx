@@ -9,6 +9,7 @@ import {
   EVENTS_BY_CATEGORY_QUERY,
 } from "@/sanity/lib/queries";
 import { PageContainer } from "@/components/page-container";
+import { CategorySummary } from "@/components/category/category-summary";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "lucide-react";
@@ -52,6 +53,11 @@ function formatDate(dateStr: string | null) {
   } catch {
     return "";
   }
+}
+
+export async function generateStaticParams() {
+  const categories: Category[] = await client.fetch(CATEGORIES_QUERY);
+  return categories.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({
@@ -119,6 +125,8 @@ export default async function CategoryPage({
           <p className="mt-2 text-neutral-400">{category.description}</p>
         )}
       </header>
+
+      {hasArticles && <CategorySummary categorySlug={slug} />}
 
       {hasEvents && (
         <section className="mt-12">
