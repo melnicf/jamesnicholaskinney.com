@@ -48,6 +48,9 @@ const components = {
     strong: ({ children }: { children?: React.ReactNode }) => (
       <strong className="font-semibold text-white">{children}</strong>
     ),
+    em: ({ children }: { children?: React.ReactNode }) => (
+      <em className="italic text-white">{children}</em>
+    ),
     link: ({
       children,
       value,
