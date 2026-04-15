@@ -1,25 +1,27 @@
 ---
-description: Use Homebrew Node for npm/node commands so they work in Cursor's sandbox (bypasses Volta)
+description: Use Homebrew Node for pnpm/node commands so they work in Cursor's sandbox (bypasses Volta)
 alwaysApply: true
 ---
 
-# npm / node commands in this project
+# pnpm / node commands in this project
 
-When running **npm** or **node** (e.g. `npm install`, `npm run dev`, `npx`) in the terminal, prepend PATH so Homebrew's Node is used and Volta is bypassed. Otherwise the sandbox may hit "Volta error: Node is not available".
+This project uses **pnpm** as its package manager.
+
+When running **pnpm** or **node** (e.g. `pnpm install`, `pnpm dev`, `pnpm dlx`) in the terminal, prepend PATH so Homebrew's Node is used and Volta is bypassed. Otherwise the sandbox may hit "Volta error: Node is not available".
 
 Use:
 
 ```bash
-PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" npm install
+PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" pnpm install
 ```
 
-or for any npm/node command:
+or for any pnpm/node command:
 
 ```bash
 PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" <command>
 ```
 
 Examples:
-- `PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" npm install`
-- `PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" npm run dev`
-- `PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" npx shadcn@latest add button`
+- `PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" pnpm install`
+- `PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" pnpm dev`
+- `PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" pnpm dlx shadcn@latest add button`

@@ -74,7 +74,7 @@ export async function createArticle(item: EnrichedItem): Promise<string> {
     title: item.title,
     slug: { _type: "slug" as const, current: slug },
     excerpt: item.excerpt,
-    contentState: "needs_review",
+    contentState: "published",
     sourceUrl: item.sourceUrl,
     sourceName: item.sourceName,
     publishedAt: item.publishedAt,

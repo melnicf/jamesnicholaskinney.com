@@ -77,7 +77,7 @@ export const article = defineType({
         list: [...CONTENT_STATES],
         layout: "radio",
       },
-      initialValue: "ingested",
+      initialValue: "published",
       group: "editorial",
     }),
     defineField({

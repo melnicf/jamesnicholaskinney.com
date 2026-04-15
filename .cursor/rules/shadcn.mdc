@@ -13,7 +13,7 @@ alwaysApply: true
 If a component is not yet in the project, add it with:
 
 ```bash
-npx shadcn@latest add <component-name>
+pnpm dlx shadcn@latest add <component-name>
 ```
 
 Use the project’s configured registry (e.g. `@shadcn`). Check `components.json` for the registry.
@@ -56,7 +56,7 @@ Use the project’s configured registry (e.g. `@shadcn`). Check `components.json
 
 ## Available @shadcn UI components (reference)
 
-Use these names with `npx shadcn@latest add <name>`:
+Use these names with `pnpm dlx shadcn@latest add <name>`:
 
 - accordion, alert, alert-dialog, aspect-ratio, avatar, badge, breadcrumb, button, button-group, calendar, card, carousel, chart, checkbox, collapsible, combobox, command, context-menu, dialog, drawer, dropdown-menu, empty, field, form, hover-card, input, input-group, input-otp, item, label, menubar, navigation-menu, pagination, popover, progress, radio-group, resizable, scroll-area, select, separator, sheet, sidebar, skeleton, slider, sonner, spinner, switch, table, tabs, textarea, toggle, toggle-group, tooltip, kbd, native-select, direction
 
