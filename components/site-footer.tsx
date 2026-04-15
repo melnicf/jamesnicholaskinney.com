@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   Linkedin,
   Youtube,
-  Twitter,
+  X,
   Instagram,
   ExternalLink,
 } from "lucide-react";
@@ -25,7 +25,7 @@ const CATEGORY_LINKS = [
 const SOCIAL_LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/jamesnicholaskinney", icon: Linkedin },
   { label: "YouTube", href: "https://www.youtube.com/@jamesnicholaskinney", icon: Youtube },
-  { label: "X", href: "https://x.com/jaborkinney", icon: Twitter },
+  { label: "X", href: "https://x.com/jaborkinney", icon: X },
   { label: "Instagram", href: "https://instagram.com", icon: Instagram },
 ] as const;
 
