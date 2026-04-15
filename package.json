@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sanity:sync-about": "tsx scripts/sync-about-to-sanity.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

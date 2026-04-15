@@ -7,6 +7,7 @@ import { PortableText } from "@/components/portable-text";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import type { PortableTextBlock } from "@portabletext/types";
+import { ABOUT_PAGE_BODY } from "@/lib/content/about-portable-text";
 
 type SanityPage = {
   title?: string;
@@ -16,22 +17,22 @@ type SanityPage = {
 export const metadata: Metadata = {
   title: "About",
   description:
-    "James Nicholas Kinney — Global Chief AI Officer, bestselling author, and President of AI For Better. Trusted voice in enterprise AI transformation.",
+    "James Nicholas Kinney — Global Chief AI Officer at INVNT, enterprise transformation leader, and voice at the intersection of AI, leadership, and human behavior.",
   openGraph: {
     title: "About James Nicholas Kinney",
     description:
-      "Global Chief AI Officer, bestselling author, and President of AI For Better. Trusted voice in enterprise AI transformation.",
+      "Global CAIO at INVNT, former Global CPO at S4 Capital, triple-certified in AI, author, and speaker on human-centered AI and enterprise transformation.",
     url: "/about",
   },
   alternates: { canonical: "/about" },
 };
 
 const CREDENTIALS = [
-  "Global Chief AI Officer",
-  "President, AI For Better",
-  "Bestselling Author",
-  "Enterprise AI Strategist",
-  "Keynote Speaker",
+  "Global Chief AI Officer, INVNT",
+  "Enterprise transformation leader",
+  "Triple-certified in AI",
+  "Author & speaker",
+  "AI for Better",
 ] as const;
 
 export default async function AboutPage() {
@@ -62,43 +63,9 @@ export default async function AboutPage() {
           ))}
         </div>
 
-        {bodyBlocks ? (
-          <div className="mt-8">
-            <PortableText value={bodyBlocks} />
-          </div>
-        ) : (
-          <div className="mt-8 space-y-5 text-neutral-300 leading-relaxed">
-            <p>
-              James Nicholas Kinney is a Global Chief AI Officer, bestselling
-              author, and one of the most sought-after voices in enterprise AI
-              transformation. As President of{" "}
-              <strong className="text-white">AI For Better</strong>, he works at
-              the intersection of artificial intelligence, business strategy,
-              and human impact.
-            </p>
-            <p>
-              With decades of experience leading technology initiatives across
-              global enterprises, James brings a unique perspective that bridges
-              the gap between technical capability and strategic value. He is
-              known for his clear, opinionated analysis that cuts through the
-              noise of the AI hype cycle to identify what actually matters for
-              business leaders and policymakers.
-            </p>
-            <p>
-              James is the author of{" "}
-              <em className="text-white">SustAIning Leadership</em> and{" "}
-              <em className="text-white">AI + Mental Health</em>, both of which
-              explore the practical and human dimensions of artificial
-              intelligence in the modern world.
-            </p>
-            <p>
-              Through this platform, James curates and frames the most important
-              developments in AI, business, policy, and culture — providing a
-              daily intelligence layer for leaders who need context, not just
-              headlines.
-            </p>
-          </div>
-        )}
+        <div className="mt-8">
+          <PortableText value={bodyBlocks ?? ABOUT_PAGE_BODY} />
+        </div>
 
         <Separator className="my-10 bg-neutral-800" />
 
