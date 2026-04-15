@@ -372,14 +372,18 @@ export function BulkReviewTool() {
           footer={
             previewArticle && (
               <Flex gap={2} justify="flex-end">
-                <Button
-                  as={IntentLink}
+                <IntentLink
                   intent="edit"
                   params={{ id: previewArticle._id }}
-                  icon={DocumentIcon}
-                  text="Open in editor"
-                  tone="primary"
-                />
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button
+                    icon={DocumentIcon}
+                    text="Open in editor"
+                    tone="primary"
+                    as="span"
+                  />
+                </IntentLink>
                 <Button text="Close" mode="ghost" onClick={closePreview} />
               </Flex>
             )

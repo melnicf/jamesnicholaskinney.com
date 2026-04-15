@@ -17,7 +17,7 @@ import type {
   SanityCategory,
 } from "./types";
 
-const MAX_ITEMS_PER_FEED = 15;
+const MAX_ITEMS_PER_FEED = 5;
 const CONCURRENCY = 5;
 
 async function runWithConcurrency<T>(

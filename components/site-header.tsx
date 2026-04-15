@@ -165,25 +165,6 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-neutral-800 bg-neutral-950">
-      {/* Utility bar — collapses on scroll */}
-      <div
-        className={cn(
-          "flex items-center justify-end border-b border-neutral-800 px-4 transition-all duration-300 ease-in-out md:px-6",
-          scrolled
-            ? "h-0 overflow-hidden border-b-0 opacity-0"
-            : "h-9 opacity-100"
-        )}
-      >
-        <Link
-          href="/studio"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs font-medium text-neutral-400 hover:text-neutral-200"
-        >
-          Studio
-        </Link>
-      </div>
-
       {/* Primary nav */}
       <div className="flex h-16 items-center justify-between gap-4 px-4 md:px-6">
         <Link
@@ -291,14 +272,6 @@ export function SiteHeader() {
                   </Link>
                 );
               })}
-              <Link
-                href="/studio"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 rounded-md px-3 py-2 text-sm text-neutral-500 hover:bg-neutral-800 hover:text-neutral-300"
-              >
-                Studio
-              </Link>
             </nav>
           </SheetContent>
         </Sheet>

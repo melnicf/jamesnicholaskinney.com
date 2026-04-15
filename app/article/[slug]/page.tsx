@@ -8,6 +8,8 @@ import { PageContainer } from "@/components/page-container";
 import type { PortableTextBlock } from "@portabletext/types";
 import { PortableText } from "@/components/portable-text";
 import { Badge } from "@/components/ui/badge";
+import { ShareButtons } from "@/components/share-buttons";
+import { Separator } from "@/components/ui/separator";
 
 type Article = {
   _id: string;
@@ -193,6 +195,14 @@ export default async function ArticlePage({
             <PortableText value={bodyBlocks} />
           </div>
         )}
+
+        <Separator className="my-8 bg-neutral-800" />
+        <footer className="flex items-center justify-between">
+          <ShareButtons
+            url={`${process.env.NEXT_PUBLIC_SITE_URL ?? "https://jamesnicholaskinney.com"}/article/${article.slug}`}
+            title={article.title}
+          />
+        </footer>
       </article>
     </PageContainer>
   );
