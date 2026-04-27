@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "@/components/theme-provider";
 import { ConditionalSiteHeader } from "@/components/conditional-site-header";
 import { ConditionalSiteFooter } from "@/components/conditional-site-footer";
 import { MainContentWrapper } from "@/components/main-content-wrapper";
@@ -57,15 +58,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-neutral-950 text-neutral-100 antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-background text-foreground antialiased`}
       >
-        <TooltipProvider>
-          <ConditionalSiteHeader />
-          <MainContentWrapper>{children}</MainContentWrapper>
-          <ConditionalSiteFooter />
-        </TooltipProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TooltipProvider>
+            <ConditionalSiteHeader />
+            <MainContentWrapper>{children}</MainContentWrapper>
+            <ConditionalSiteFooter />
+          </TooltipProvider>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

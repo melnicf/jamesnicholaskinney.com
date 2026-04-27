@@ -163,11 +163,13 @@ export default async function CategoryPage({
   return (
     <PageContainer size="wide" className="py-8 md:py-12">
       <header>
-        <h1 className="text-3xl font-semibold tracking-tight text-white">
+        <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-white">
           {category.title}
         </h1>
         {category.description && (
-          <p className="mt-2 text-neutral-400">{category.description}</p>
+          <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+            {category.description}
+          </p>
         )}
       </header>
 
@@ -175,8 +177,8 @@ export default async function CategoryPage({
 
       {hasEvents && (
         <section className="mt-12">
-          <h2 className="mb-4 flex items-center gap-2 text-lg font-medium text-white">
-            <Calendar className="size-5 text-neutral-400" />
+          <h2 className="mb-4 flex items-center gap-2 text-lg font-medium text-neutral-900 dark:text-white">
+            <Calendar className="size-5 text-neutral-600 dark:text-neutral-400" />
             Events
           </h2>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -193,10 +195,10 @@ export default async function CategoryPage({
               return (
                 <li key={event._id}>
                   <Wrapper {...wrapperProps}>
-                    <Card className="h-full border-neutral-800 bg-neutral-900/50 transition-colors hover:border-neutral-700 hover:bg-neutral-900">
+                    <Card className="h-full border-border bg-neutral-50/60 transition-colors hover:border-neutral-300 hover:bg-neutral-100 dark:bg-neutral-900/50 dark:hover:border-neutral-700 dark:hover:bg-neutral-900">
                       <CardHeader className="space-y-2 px-4 py-4 md:px-5 md:py-5">
                         <div className="flex items-start justify-between gap-2">
-                          <CardTitle className="line-clamp-2 text-base font-medium text-white">
+                          <CardTitle className="line-clamp-2 text-base font-medium text-neutral-900 dark:text-white">
                             {event.title}
                           </CardTitle>
                           <Badge variant="secondary" className="shrink-0">
@@ -205,17 +207,17 @@ export default async function CategoryPage({
                         </div>
                       </CardHeader>
                       <CardContent className="px-4 pb-4 md:px-5 md:pb-5">
-                        <p className="line-clamp-2 text-sm text-neutral-400">
+                        <p className="line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400">
                           {event.description ?? ""}
                         </p>
                         <time
-                          className="mt-2 block text-xs text-neutral-500"
+                          className="mt-2 block text-xs text-muted-foreground"
                           dateTime={event.eventDate ?? undefined}
                         >
                           {formatDate(event.eventDate ?? null)}
                         </time>
                         {event.location && (
-                          <p className="mt-1 text-xs text-neutral-500">
+                          <p className="mt-1 text-xs text-muted-foreground">
                             {event.location}
                           </p>
                         )}
@@ -231,12 +233,14 @@ export default async function CategoryPage({
 
       {hasArticles && (
         <section className="mt-12">
-          <h2 className="mb-4 text-lg font-medium text-white">Articles</h2>
+          <h2 className="mb-4 text-lg font-medium text-neutral-900 dark:text-white">
+            Articles
+          </h2>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {paginatedArticles.map((article) => (
               <li key={article._id}>
                 <Link href={`/article/${article.slug}`}>
-                  <Card className="h-full overflow-hidden border-neutral-800 bg-neutral-900/50 transition-colors hover:border-neutral-700 hover:bg-neutral-900">
+                  <Card className="h-full overflow-hidden border-border bg-neutral-50/60 transition-colors hover:border-neutral-300 hover:bg-neutral-100 dark:bg-neutral-900/50 dark:hover:border-neutral-700 dark:hover:bg-neutral-900">
                     {article.imageUrl && (
                       <div className="relative aspect-[16/9] w-full">
                         <Image
@@ -249,16 +253,16 @@ export default async function CategoryPage({
                       </div>
                     )}
                     <CardHeader className="space-y-2 px-4 py-4 md:px-5 md:py-5">
-                      <CardTitle className="line-clamp-2 text-base font-medium text-white">
+                      <CardTitle className="line-clamp-2 text-base font-medium text-neutral-900 dark:text-white">
                         {article.title}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="px-4 pb-4 md:px-5 md:pb-5">
-                      <p className="line-clamp-2 text-sm text-neutral-400">
+                      <p className="line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400">
                         {article.excerpt ?? ""}
                       </p>
                       <time
-                        className="mt-2 block text-xs text-neutral-500"
+                        className="mt-2 block text-xs text-muted-foreground"
                         dateTime={article.publishedAt ?? undefined}
                       >
                         {formatDate(article.publishedAt ?? null)}
@@ -308,7 +312,7 @@ export default async function CategoryPage({
       )}
 
       {!hasEvents && !hasArticles && (
-        <p className="mt-12 text-neutral-500">
+        <p className="mt-12 text-muted-foreground">
           No published articles or events in this category yet.
         </p>
       )}

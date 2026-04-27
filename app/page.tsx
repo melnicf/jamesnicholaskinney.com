@@ -34,6 +34,7 @@ const personJsonLd = {
     "https://www.linkedin.com/in/jameskinney",
     "https://www.instagram.com/jamesnicholaskinney",
     "https://www.youtube.com/@jamesnicholaskinney",
+    "https://x.com/aiforbetterpac",
   ],
 };
 

@@ -34,9 +34,11 @@ export async function FeaturedTake() {
   if (!featured) {
     return (
       <section className="py-12">
-        <h2 className="text-xl font-semibold text-white">Featured Take</h2>
-        <div className="mt-6 rounded-lg border border-dashed border-neutral-700 bg-neutral-900/30 p-8 text-center">
-          <p className="text-neutral-500">
+        <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
+          Featured Take
+        </h2>
+        <div className="mt-6 rounded-lg border border-dashed border-neutral-300 bg-neutral-50/50 p-8 text-center dark:border-neutral-700 dark:bg-neutral-900/30">
+          <p className="text-muted-foreground">
             Featured commentary will appear here once content is published.
           </p>
         </div>
@@ -46,10 +48,12 @@ export async function FeaturedTake() {
 
   return (
     <section className="py-12">
-      <h2 className="text-xl font-semibold text-white">Featured Take</h2>
+      <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
+        Featured Take
+      </h2>
       <Link
         href={`/article/${featured.slug}`}
-        className="mt-6 block overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900/50 transition-colors hover:border-neutral-700 hover:bg-neutral-900 md:flex md:flex-row-reverse"
+        className="mt-6 block overflow-hidden rounded-lg border border-border bg-neutral-50/60 transition-colors hover:border-neutral-300 hover:bg-neutral-100 dark:bg-neutral-900/50 dark:hover:border-neutral-700 dark:hover:bg-neutral-900 md:flex md:flex-row-reverse"
       >
         {featured.imageUrl && (
           <div className="relative aspect-video md:aspect-auto md:w-2/5">
@@ -65,17 +69,18 @@ export async function FeaturedTake() {
         )}
         <div className={`p-6 ${featured.imageUrl ? "md:w-3/5" : ""}`}>
           {featured.category && (
-            <Badge
-              variant="secondary"
-              className="mb-3 w-fit border-neutral-700 bg-neutral-800 text-neutral-300"
-            >
+            <Badge variant="secondary" className="mb-3 w-fit">
               {featured.category.title}
             </Badge>
           )}
-          <h3 className="text-xl font-semibold text-white">{featured.title}</h3>
-          <p className="mt-2 text-neutral-400">{featured.excerpt ?? ""}</p>
+          <h3 className="text-xl font-semibold text-neutral-900 dark:text-white">
+            {featured.title}
+          </h3>
+          <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+            {featured.excerpt ?? ""}
+          </p>
           <time
-            className="mt-4 block text-sm text-neutral-500"
+            className="mt-4 block text-sm text-muted-foreground"
             dateTime={featured.publishedAt ?? undefined}
           >
             {formatDate(featured.publishedAt ?? null)}

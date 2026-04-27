@@ -5,15 +5,17 @@ import { Button } from "@/components/ui/button";
 export function HeroSection() {
   return (
     <section>
-      <p className="text-sm font-medium uppercase tracking-widest text-neutral-500">
+      <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
         James Nicholas Kinney
       </p>
-      <h1 className="mt-3 text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">
+      <h1 className="mt-3 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-5xl lg:text-6xl">
         Cut through the noise.
         <br />
-        <span className="text-neutral-400">Know what matters.</span>
+        <span className="text-neutral-500 dark:text-neutral-400">
+          Know what matters.
+        </span>
       </h1>
-      <p className="mt-5 max-w-2xl text-lg leading-relaxed text-neutral-400 md:text-xl">
+      <p className="mt-5 max-w-2xl text-lg leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-xl">
         Daily intelligence on AI, business, policy, and culture — curated and
         framed by a Global Chief AI Officer, bestselling author, and trusted
         voice in enterprise transformation.
@@ -25,10 +27,8 @@ export function HeroSection() {
             <ArrowRight className="ml-2 size-4" />
           </Link>
         </Button>
-        <Button asChild variant="outline" size="lg" className="border-neutral-700 bg-transparent text-neutral-200 hover:bg-neutral-800 hover:text-white">
-          <Link href="/about">
-            About James
-          </Link>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/about">About James</Link>
         </Button>
       </div>
     </section>

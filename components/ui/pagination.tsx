@@ -59,7 +59,7 @@ function PaginationLink({
           size,
         }),
         isActive &&
-          "border border-neutral-600 bg-neutral-800 text-white hover:bg-neutral-700 hover:text-white",
+          "border border-border bg-accent text-accent-foreground hover:bg-accent/80",
         className
       )}
       {...props}

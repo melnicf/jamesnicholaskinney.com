@@ -25,7 +25,7 @@ const CATEGORY_LINKS = [
 const SOCIAL_LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/jameskinney", icon: Linkedin },
   { label: "YouTube", href: "https://www.youtube.com/@jamesnicholaskinney", icon: Youtube },
-  { label: "X", href: "https://x.com/jaborkinney", icon: XTwitterIcon },
+  { label: "X", href: "https://x.com/aiforbetterpac", icon: XTwitterIcon },
   { label: "Instagram", href: "https://www.instagram.com/jamesnicholaskinney", icon: Instagram },
 ] as const;
 
@@ -39,7 +39,7 @@ function SocialIconLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex size-9 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-100"
+      className="flex size-9 items-center justify-center rounded-md text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
       aria-label={label}
     >
       <Icon className="size-5" />
@@ -49,12 +49,12 @@ function SocialIconLink({
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-neutral-800 bg-neutral-950">
+    <footer className="border-t border-border bg-background">
       <PageContainer size="wide" className="py-12 md:py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Primary nav */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Explore
             </h3>
             <ul className="mt-4 flex flex-col gap-2">
@@ -62,7 +62,7 @@ export function SiteFooter() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-neutral-300 transition-colors hover:text-white"
+                    className="text-sm text-neutral-700 transition-colors hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -73,7 +73,7 @@ export function SiteFooter() {
 
           {/* Categories */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Categories
             </h3>
             <ul className="mt-4 flex flex-col gap-2">
@@ -81,7 +81,7 @@ export function SiteFooter() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-neutral-300 transition-colors hover:text-white"
+                    className="text-sm text-neutral-700 transition-colors hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -92,7 +92,7 @@ export function SiteFooter() {
 
           {/* Studio / Admin */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               For Editors
             </h3>
             <ul className="mt-4 flex flex-col gap-2">
@@ -101,7 +101,7 @@ export function SiteFooter() {
                   href="/studio"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm text-neutral-300 transition-colors hover:text-white"
+                  className="inline-flex items-center gap-1.5 text-sm text-neutral-700 transition-colors hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
                 >
                   Studio
                   <ExternalLink className="size-3.5" />
@@ -112,7 +112,7 @@ export function SiteFooter() {
 
           {/* Social */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Follow
             </h3>
             <div className="mt-4 flex gap-1">
@@ -123,8 +123,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-neutral-800 pt-8">
-          <p className="text-xs text-neutral-500">
+        <div className="mt-12 border-t border-border pt-8">
+          <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} James Nicholas Kinney. All rights
             reserved.
           </p>

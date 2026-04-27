@@ -48,7 +48,7 @@ export default async function AboutPage() {
   return (
     <PageContainer size="narrow" className="py-8 md:py-12">
       <article>
-        <h1 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
+        <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
           {page?.title ?? "About James Nicholas Kinney"}
         </h1>
 
@@ -56,7 +56,7 @@ export default async function AboutPage() {
           {CREDENTIALS.map((cred) => (
             <span
               key={cred}
-              className="rounded-full border border-neutral-700 bg-neutral-800/50 px-3 py-1 text-sm text-neutral-300"
+              className="rounded-full border border-border bg-neutral-100/80 px-3 py-1 text-sm text-neutral-700 dark:bg-neutral-800/50 dark:text-neutral-300"
             >
               {cred}
             </span>
@@ -67,24 +67,16 @@ export default async function AboutPage() {
           <PortableText value={bodyBlocks ?? ABOUT_PAGE_BODY} />
         </div>
 
-        <Separator className="my-10 bg-neutral-800" />
+        <Separator className="my-10" />
 
         <div className="flex flex-wrap gap-3">
           <Button asChild>
             <Link href="/books">Read His Books</Link>
           </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="border-neutral-700 bg-transparent text-neutral-200 hover:bg-neutral-800 hover:text-white"
-          >
+          <Button asChild variant="outline">
             <Link href="/appearances">Speaking & Appearances</Link>
           </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="border-neutral-700 bg-transparent text-neutral-200 hover:bg-neutral-800 hover:text-white"
-          >
+          <Button asChild variant="outline">
             <Link href="/contact">Get in Touch</Link>
           </Button>
         </div>

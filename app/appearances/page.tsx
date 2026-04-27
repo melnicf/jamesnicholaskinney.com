@@ -92,29 +92,29 @@ function EventCard({ event, isPast }: { event: Event; isPast: boolean }) {
 
   const content = (
     <Card
-      className={`group h-full border-neutral-800 bg-neutral-900/50 transition-colors hover:border-neutral-700 hover:bg-neutral-900 ${isPast ? "opacity-60 hover:opacity-80" : ""}`}
+      className={`group h-full border-border bg-neutral-50/60 transition-colors hover:border-neutral-300 hover:bg-neutral-100 dark:bg-neutral-900/50 dark:hover:border-neutral-700 dark:hover:bg-neutral-900 ${isPast ? "opacity-60 hover:opacity-80" : ""}`}
     >
       <CardContent className="flex gap-4 p-4 md:p-5">
         {dateParts && (
-          <div className="flex size-14 shrink-0 flex-col items-center justify-center rounded-lg bg-neutral-800 text-center">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400">
+          <div className="flex size-14 shrink-0 flex-col items-center justify-center rounded-lg bg-neutral-100 text-center dark:bg-neutral-800">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
               {dateParts.month}
             </span>
-            <span className="text-lg font-bold leading-tight text-white">
+            <span className="text-lg font-bold leading-tight text-neutral-900 dark:text-white">
               {dateParts.day}
             </span>
           </div>
         )}
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
-            <h3 className="font-medium leading-snug text-white">
+            <h3 className="font-medium leading-snug text-neutral-900 dark:text-white">
               {event.title}
             </h3>
             {event.externalUrl && (
-              <ExternalLink className="mt-0.5 size-3.5 shrink-0 text-neutral-500 transition-colors group-hover:text-neutral-300" />
+              <ExternalLink className="mt-0.5 size-3.5 shrink-0 text-neutral-500 transition-colors group-hover:text-neutral-700 dark:group-hover:text-neutral-300" />
             )}
           </div>
-          <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-400">
+          <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-600 dark:text-neutral-400">
             {event.eventDate && (
               <span className="inline-flex items-center gap-1">
                 <CalendarDays className="size-3" />
@@ -129,7 +129,7 @@ function EventCard({ event, isPast }: { event: Event; isPast: boolean }) {
             )}
           </div>
           {event.description && (
-            <p className="mt-2 line-clamp-2 text-sm text-neutral-500">
+            <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
               {event.description}
             </p>
           )}
@@ -176,7 +176,7 @@ export default async function AppearancesPage() {
   return (
     <PageContainer size="wide" className="py-8 md:py-12">
       <header>
-        <h1 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
+        <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
           {page?.title ?? "Appearances"}
         </h1>
         {bodyBlocks && (
@@ -189,10 +189,10 @@ export default async function AppearancesPage() {
       {upcoming.length > 0 && (
         <section className="mt-10">
           <div className="flex items-center gap-3">
-            <h2 className="text-lg font-semibold text-white">Upcoming</h2>
-            <Badge variant="secondary" className="border-neutral-700 bg-neutral-800 text-neutral-300">
-              {upcoming.length}
-            </Badge>
+            <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">
+              Upcoming
+            </h2>
+            <Badge variant="secondary">{upcoming.length}</Badge>
           </div>
           <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {upcoming.map((event) => (
@@ -206,8 +206,10 @@ export default async function AppearancesPage() {
 
       {upcoming.length === 0 && (
         <section className="mt-10">
-          <h2 className="text-lg font-semibold text-white">Upcoming</h2>
-          <p className="mt-4 text-neutral-500">
+          <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">
+            Upcoming
+          </h2>
+          <p className="mt-4 text-muted-foreground">
             No upcoming events scheduled. Check back soon.
           </p>
         </section>
@@ -221,7 +223,7 @@ export default async function AppearancesPage() {
 
       {past.length > 0 && (
         <section className="mt-14">
-          <h2 className="text-lg font-semibold text-neutral-400">Past</h2>
+          <h2 className="text-lg font-semibold text-muted-foreground">Past</h2>
           <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {past.map((event) => (
               <li key={event._id}>

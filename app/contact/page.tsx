@@ -39,23 +39,23 @@ export default async function ContactPage() {
   return (
     <PageContainer size="narrow" className="py-8 md:py-12">
       <article>
-        <h1 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
+        <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
           {page?.title ?? "Contact"}
         </h1>
-        <p className="mt-3 text-neutral-400">
+        <p className="mt-3 text-neutral-600 dark:text-neutral-400">
           For inquiries, media requests, speaking engagements, and
           collaboration.
         </p>
 
-        <div className="mt-8 flex items-center gap-3 rounded-lg border border-neutral-800 bg-neutral-900/50 p-5">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-neutral-800">
-            <Mail className="size-5 text-neutral-400" />
+        <div className="mt-8 flex items-center gap-3 rounded-lg border border-border bg-neutral-50/60 p-5 dark:bg-neutral-900/50">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 dark:bg-neutral-800">
+            <Mail className="size-5 text-neutral-600 dark:text-neutral-400" />
           </div>
           <div>
-            <p className="text-sm text-neutral-500">Email</p>
+            <p className="text-sm text-muted-foreground">Email</p>
             <a
               href="mailto:hello@jamesnicholaskinney.com"
-              className="font-medium text-white transition-colors hover:text-neutral-300"
+              className="font-medium text-neutral-900 transition-colors hover:text-primary dark:text-white dark:hover:text-neutral-300"
             >
               hello@jamesnicholaskinney.com
             </a>
@@ -68,10 +68,12 @@ export default async function ContactPage() {
           </div>
         )}
 
-        <Separator className="my-10 bg-neutral-800" />
+        <Separator className="my-10" />
 
-        <h2 className="text-xl font-semibold text-white">Send a Message</h2>
-        <p className="mt-1 text-sm text-neutral-400">
+        <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
+          Send a Message
+        </h2>
+        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
           Fill out the form below and we&apos;ll get back to you.
         </p>
         <div className="mt-6">

@@ -139,19 +139,16 @@ export default async function ArticlePage({
               href={`/category/${article.category.slug}`}
               className="inline-block"
             >
-              <Badge
-                variant="secondary"
-                className="mb-4 border-neutral-700 bg-neutral-800 text-neutral-300"
-              >
+              <Badge variant="secondary" className="mb-4">
                 {article.category.title}
               </Badge>
             </Link>
           )}
-          <h1 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
+          <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
             {article.title}
           </h1>
           <time
-            className="mt-2 block text-sm text-neutral-500"
+            className="mt-2 block text-sm text-muted-foreground"
             dateTime={article.publishedAt ?? undefined}
           >
             {formatDate(article.publishedAt ?? null)}
@@ -169,17 +166,19 @@ export default async function ArticlePage({
             </div>
           )}
           {article.excerpt && (
-            <p className="mt-4 text-lg text-neutral-400">{article.excerpt}</p>
+            <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
+              {article.excerpt}
+            </p>
           )}
           {article.sourceName && (
-            <p className="mt-2 text-sm text-neutral-500">
+            <p className="mt-2 text-sm text-muted-foreground">
               Source:{" "}
               {article.sourceUrl ? (
                 <a
                   href={article.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline underline-offset-2 hover:text-neutral-300"
+                  className="underline underline-offset-2 hover:text-primary dark:hover:text-neutral-300"
                 >
                   {article.sourceName}
                 </a>
@@ -191,12 +190,12 @@ export default async function ArticlePage({
         </header>
 
         {bodyBlocks && (
-          <div className="mt-8 border-t border-neutral-800 pt-8">
+          <div className="mt-8 border-t border-border pt-8">
             <PortableText value={bodyBlocks} />
           </div>
         )}
 
-        <Separator className="my-8 bg-neutral-800" />
+        <Separator className="my-8" />
         <footer className="flex items-center justify-between">
           <ShareButtons
             url={`${process.env.NEXT_PUBLIC_SITE_URL ?? "https://jamesnicholaskinney.com"}/article/${article.slug}`}

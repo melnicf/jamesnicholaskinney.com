@@ -33,8 +33,8 @@ export async function FeaturedArticle() {
 
   if (!article) {
     return (
-      <div className="rounded-lg border border-dashed border-neutral-700 bg-neutral-900/30 p-8 text-center">
-        <p className="text-neutral-500">
+      <div className="rounded-lg border border-dashed border-neutral-300 bg-neutral-50/50 p-8 text-center dark:border-neutral-700 dark:bg-neutral-900/30">
+        <p className="text-muted-foreground">
           Featured AI article will appear here once Business & Tech content is
           published.
         </p>
@@ -45,7 +45,7 @@ export async function FeaturedArticle() {
   return (
     <Link
       href={`/article/${article.slug}`}
-      className="group block overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900/50 transition-colors hover:border-neutral-700 hover:bg-neutral-900"
+      className="group block overflow-hidden rounded-lg border border-border bg-neutral-50/60 transition-colors hover:border-neutral-300 hover:bg-neutral-100 dark:bg-neutral-900/50 dark:hover:border-neutral-700 dark:hover:bg-neutral-900"
     >
       {article.imageUrl && (
         <div className="relative aspect-video w-full overflow-hidden">
@@ -62,27 +62,22 @@ export async function FeaturedArticle() {
       <div className="p-5 md:p-6">
         <div className="flex items-center gap-2">
           {article.category && (
-            <Badge
-              variant="secondary"
-              className="border-neutral-700 bg-neutral-800 text-neutral-300"
-            >
-              {article.category.title}
-            </Badge>
+            <Badge variant="secondary">{article.category.title}</Badge>
           )}
-          <span className="text-xs font-medium uppercase tracking-wider text-neutral-500">
+          <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Featured
           </span>
         </div>
-        <h3 className="mt-3 text-xl font-semibold leading-snug text-white md:text-2xl">
+        <h3 className="mt-3 text-xl font-semibold leading-snug text-neutral-900 dark:text-white md:text-2xl">
           {article.title}
         </h3>
         {article.excerpt && (
-          <p className="mt-2 line-clamp-3 text-neutral-400">
+          <p className="mt-2 line-clamp-3 text-neutral-600 dark:text-neutral-400">
             {article.excerpt}
           </p>
         )}
         <time
-          className="mt-3 block text-sm text-neutral-500"
+          className="mt-3 block text-sm text-muted-foreground"
           dateTime={article.publishedAt ?? undefined}
         >
           {formatDate(article.publishedAt ?? null)}

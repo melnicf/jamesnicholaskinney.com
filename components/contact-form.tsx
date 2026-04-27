@@ -52,7 +52,7 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <p className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 text-neutral-300">
+      <p className="rounded-lg border border-border bg-neutral-50/60 p-6 text-neutral-700 dark:bg-neutral-900/50 dark:text-neutral-300">
         Thank you. Your message has been received. We&apos;ll get back to you
         soon.
       </p>
@@ -67,15 +67,11 @@ export function ContactForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-neutral-300">Name</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input
-                  className="border-neutral-700 bg-neutral-900 text-white placeholder:text-neutral-600 focus-visible:ring-neutral-500"
-                  placeholder="Your name"
-                  {...field}
-                />
+                <Input placeholder="Your name" {...field} />
               </FormControl>
-              <FormMessage className="text-red-400" />
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -84,16 +80,11 @@ export function ContactForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-neutral-300">Email</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input
-                  type="email"
-                  className="border-neutral-700 bg-neutral-900 text-white placeholder:text-neutral-600 focus-visible:ring-neutral-500"
-                  placeholder="you@example.com"
-                  {...field}
-                />
+                <Input type="email" placeholder="you@example.com" {...field} />
               </FormControl>
-              <FormMessage className="text-red-400" />
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -102,15 +93,11 @@ export function ContactForm() {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-neutral-300">Subject</FormLabel>
+              <FormLabel>Subject</FormLabel>
               <FormControl>
-                <Input
-                  className="border-neutral-700 bg-neutral-900 text-white placeholder:text-neutral-600 focus-visible:ring-neutral-500"
-                  placeholder="What is this regarding?"
-                  {...field}
-                />
+                <Input placeholder="What is this regarding?" {...field} />
               </FormControl>
-              <FormMessage className="text-red-400" />
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -119,20 +106,20 @@ export function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-neutral-300">Message</FormLabel>
+              <FormLabel>Message</FormLabel>
               <FormControl>
                 <Textarea
-                  className="min-h-[120px] border-neutral-700 bg-neutral-900 text-white placeholder:text-neutral-600 focus-visible:ring-neutral-500"
+                  className="min-h-[120px]"
                   placeholder="Your message..."
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="text-red-400" />
+              <FormMessage />
             </FormItem>
           )}
         />
         {status === "error" && (
-          <p className="text-sm text-red-400">
+          <p className="text-sm text-destructive">
             Something went wrong. Please try again.
           </p>
         )}

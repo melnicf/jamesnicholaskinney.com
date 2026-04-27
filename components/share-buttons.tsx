@@ -51,7 +51,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
 
   return (
     <div className="flex items-center gap-1">
-      <span className="mr-1 text-xs font-medium uppercase tracking-wider text-neutral-500">
+      <span className="mr-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
         Share
       </span>
       {SHARE_CHANNELS.map((channel) => (
@@ -60,7 +60,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
             <Button
               variant="ghost"
               size="icon"
-              className="size-8 text-neutral-400 hover:bg-neutral-800 hover:text-white"
+              className="size-8 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
               asChild
             >
               <a
@@ -73,9 +73,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
               </a>
             </Button>
           </TooltipTrigger>
-          <TooltipContent side="bottom" className="border-neutral-700 bg-neutral-800 text-neutral-200">
-            {channel.label}
-          </TooltipContent>
+          <TooltipContent side="bottom">{channel.label}</TooltipContent>
         </Tooltip>
       ))}
       <Tooltip>
@@ -83,18 +81,18 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="size-8 text-neutral-400 hover:bg-neutral-800 hover:text-white"
+            className="size-8 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
             onClick={copyLink}
             aria-label="Copy link"
           >
             {copied ? (
-              <Check className="size-4 text-green-400" />
+              <Check className="size-4 text-green-600 dark:text-green-400" />
             ) : (
               <Link2 className="size-4" />
             )}
           </Button>
         </TooltipTrigger>
-        <TooltipContent side="bottom" className="border-neutral-700 bg-neutral-800 text-neutral-200">
+        <TooltipContent side="bottom">
           {copied ? "Copied!" : "Copy link"}
         </TooltipContent>
       </Tooltip>

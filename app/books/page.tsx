@@ -62,10 +62,10 @@ export default async function BooksPage() {
   return (
     <PageContainer size="narrow" className="py-8 md:py-12">
       <article>
-        <h1 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
+        <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
           {page?.title ?? "Books"}
         </h1>
-        <p className="mt-3 text-neutral-400">
+        <p className="mt-3 text-neutral-600 dark:text-neutral-400">
           Published works by James Nicholas Kinney on the practical and human
           dimensions of artificial intelligence.
         </p>
@@ -80,10 +80,10 @@ export default async function BooksPage() {
           {BOOKS.map((book) => (
             <div
               key={book.title}
-              className="overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900/50"
+              className="overflow-hidden rounded-lg border border-border bg-neutral-50/60 dark:bg-neutral-900/50"
             >
               <div className="flex gap-3 overflow-x-auto p-5 md:p-6">
-                <div className="relative aspect-2/3 w-44 shrink-0 overflow-hidden rounded-md shadow-lg shadow-black/40">
+                <div className="relative aspect-2/3 w-44 shrink-0 overflow-hidden rounded-md shadow-lg shadow-neutral-300/40 dark:shadow-black/40">
                   <Image
                     src={book.coverFront}
                     alt={`${book.title} — front cover`}
@@ -92,7 +92,7 @@ export default async function BooksPage() {
                     sizes="176px"
                   />
                 </div>
-                <div className="relative aspect-2/3 w-44 shrink-0 overflow-hidden rounded-md shadow-lg shadow-black/40">
+                <div className="relative aspect-2/3 w-44 shrink-0 overflow-hidden rounded-md shadow-lg shadow-neutral-300/40 dark:shadow-black/40">
                   <Image
                     src={book.coverBack}
                     alt={`${book.title} — back cover`}
@@ -103,20 +103,20 @@ export default async function BooksPage() {
                 </div>
               </div>
               <div className="px-5 pb-6 md:px-6 md:pb-8">
-                <h2 className="text-2xl font-semibold text-white">
+                <h2 className="text-2xl font-semibold text-neutral-900 dark:text-white">
                   {book.title}
                 </h2>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {book.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-neutral-700 bg-neutral-800/50 px-2.5 py-0.5 text-xs text-neutral-400"
+                      className="rounded-full border border-border bg-neutral-100/80 px-2.5 py-0.5 text-xs text-neutral-600 dark:bg-neutral-800/50 dark:text-neutral-400"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
-                <p className="mt-4 leading-relaxed text-neutral-300">
+                <p className="mt-4 leading-relaxed text-neutral-700 dark:text-neutral-300">
                   {book.description}
                 </p>
                 <div className="mt-6">
@@ -136,17 +136,13 @@ export default async function BooksPage() {
           ))}
         </div>
 
-        <Separator className="my-10 bg-neutral-800" />
+        <Separator className="my-10" />
 
         <div className="text-center">
-          <p className="text-neutral-400">
+          <p className="text-neutral-600 dark:text-neutral-400">
             Interested in bulk orders or speaking about these topics?
           </p>
-          <Button
-            asChild
-            variant="outline"
-            className="mt-4 border-neutral-700 bg-transparent text-neutral-200 hover:bg-neutral-800 hover:text-white"
-          >
+          <Button asChild variant="outline" className="mt-4">
             <Link href="/contact">Get in Touch</Link>
           </Button>
         </div>

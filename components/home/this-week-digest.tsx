@@ -27,11 +27,11 @@ export async function ThisWeekDigest() {
   if (!summary) return null;
 
   return (
-    <div className="border-t border-neutral-800/50 pb-4 pt-8">
-      <p className="mb-3 text-xs font-medium uppercase tracking-widest text-neutral-600">
+    <div className="border-t border-border pb-4 pt-8">
+      <p className="mb-3 text-xs font-medium uppercase tracking-widest text-muted-foreground">
         This week
       </p>
-      <p className="max-w-3xl text-lg leading-relaxed text-neutral-400 md:text-xl md:leading-relaxed">
+      <p className="max-w-3xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-400 md:text-xl md:leading-relaxed">
         {summary}
       </p>
     </div>
